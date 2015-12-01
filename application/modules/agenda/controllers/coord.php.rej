@@ -1,0 +1,21 @@
+diff a/application/modules/agenda/controllers/coord.php b/application/modules/agenda/controllers/coord.php	(rejected hunks)
+@@ -10,12 +10,16 @@
+         parent::__construct();
+     }
+     public function index() {
+-        
++        $this->title="Agenda Kegiatan";
++        $this->script_header_spesific = 'lay-scripts/header_calendaragenda';
++        $this->script_footer_spesific = 'lay-scripts/footer_calendaragenda';
++        $this->display('calendarAgenda');
+     }
+     
+     public function calendarAgenda() {
+-        $this->script_header_spesific = 'lay-scripts/header_CalendarAgenda';
+-        $this->script_footer_spesific = 'lay-scripts/footer_CalendarAgenda';
++        $this->title="Agenda Kegiatan";
++        $this->script_header_spesific = 'lay-scripts/header_calendaragenda';
++        $this->script_footer_spesific = 'lay-scripts/footer_calendaragenda';
+         $this->display('calendarAgenda');
+     }
+     
