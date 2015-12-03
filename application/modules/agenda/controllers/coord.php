@@ -8,6 +8,7 @@ class Coord extends Koordinator_Controller {
     
     public function __construct() {
         parent::__construct();
+        $this->load->model('agenda/model_agenda');
     }
     public function index() {
         $this->title="Agenda Kegiatan";
@@ -20,7 +21,10 @@ class Coord extends Koordinator_Controller {
         $this->title="Agenda Kegiatan";
         $this->script_header_spesific = 'lay-scripts/header_calendaragenda';
         $this->script_footer_spesific = 'lay-scripts/footer_calendaragenda';
-        $this->display('calendarAgenda');
+        $data["some"] = "syalal";
+        $data['agenda'] = $this->model_agenda->agenda();
+        $data['pendamping'] = $this->model_agenda->pendamping();
+        $this->display('calendarAgenda',$data);
     }
     
     public function detailAgenda() {
@@ -32,5 +36,48 @@ class Coord extends Koordinator_Controller {
         $this->title="Ubah Agenda Kegiatan";
         $this->display('editAgenda');
     }
-    
+    public function home(){
+        $data["some"] = "syalal";
+        $this->load->view('agenda/jscal',$data);
+    }
+    public function save(){
+        $id = $this->saveAgenda();
+        $this->createPendamping($id);
+        $this->createSat($id);
+    }
+    public function createPendamping($id){
+        $count = $this->input->post('countpendamping');
+        for($i=1;$i<=$count;$i++){
+            $data['nama'] = $this->input->post('npen'.$i);
+            $data['telp'] = $this->input->post('hpen'.$i);
+            $data['agenda'] = $id;
+            $this->db->insert('pendamping',$data);
+        }
+    }
+    public function createSat($id){
+        $count = $this->input->post('countsatpas');
+        for($i=1;$i<=$count;$i++){
+            $data['nama'] = $this->input->post('nsat'.$i);
+            $data['telp'] = $this->input->post('hsat'.$i);
+            $data['agenda'] = $id;
+            $this->db->insert('satpassus',$data);
+        }
+    } 
+    public function saveAgenda(){
+        $id = $this->session->userdata['logged_in']["id"];
+        $data['judul'] = $this->input->post('judul');
+        $data['awal'] = $this->calendar($this->input->post('awal'));
+        $data['akhir'] = $this->calendar($this->input->post('akhir'));   
+        $data['isi'] = $this->input->post('isi');
+        $data['hasil'] = $this->input->post('hasil');
+        $data['tempat'] = $this->input->post('tempat');
+        $data['admin'] = $id;
+        $this->db->insert('agenda',$data);
+        return $this->db->insert_id();
+    }
+    private function calendar($tanggal)
+    {
+        $date = str_replace('T'," ", $tanggal);
+        return $date;
+    }
 }

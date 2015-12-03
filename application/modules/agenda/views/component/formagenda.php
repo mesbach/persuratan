@@ -1,20 +1,28 @@
 
-<form role="form" action="#" method="POST">
+<form role="form" action="<?php echo base_url()?>agenda/coord/save" method="POST">
     <div class="row">
         <div class="col-md-6">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-group">
                         <label>Nama Agenda</label>
-                        <input type="text" class="form-control" name="kegiatan" placeholder="Nama Agenda">
+                        <input type="text" class="form-control" name="judul" placeholder="Nama Agenda">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-group">
-                        <label>Tanggal & Waktu</label>
-                        <input class="form-control" type="datetime-local" name="bdaytime">
+                        <label>Tanggal & Waktu Awal</label>
+                        <input class="form-control" type="datetime-local" name="awal">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Tanggal & Waktu Akhir</label>
+                        <input class="form-control" type="datetime-local" name="akhir">
                     </div>
                 </div>
             </div>
@@ -77,7 +85,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label >Hasil Agenda</label>
-                        <textarea class="form-control" name="hasilagenda" rows="3"></textarea>
+                        <textarea class="form-control" name="hasil" rows="3"></textarea>
                     </div>
                 </div>
             </div>

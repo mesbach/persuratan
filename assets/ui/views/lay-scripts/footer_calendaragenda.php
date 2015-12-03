@@ -5,8 +5,7 @@
 
 <script src="<?php echo base_url(); ?>assets/ui/js/fullcalendar/fullcalendar.min.js"></script>
 <!--script for this page only-->
-<script src="<?php echo base_url(); ?>assets/ui/js/external-dragging-calendar.js"></script>
-
+<?php $this->load->view('agenda/jscal');?>
 <!-- icheck -->
 <script src="<?php echo base_url(); ?>assets/ui/js/iCheck/jquery.icheck.js"></script>
 <!--icheck init -->
