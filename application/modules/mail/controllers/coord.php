@@ -8,7 +8,7 @@ class Coord extends Koordinator_Controller {
     
     public function __construct() {
         parent::__construct();
-        $this->load->model('dashboard/model');
+        $this->load->model('mail/model_mail');
     }
     
     //inbox
@@ -60,9 +60,9 @@ class Coord extends Koordinator_Controller {
     
     //lihat detil surat masuk
     public function viewMail($id) {
-        $data['surat'] = $this->model->getMail($id);
-        $data['memo'] = $this->model->getMemo($id);
-        $this->model->readMail($id);
+        $data['surat'] = $this->model_mail->getMail($id);
+        $data['memo'] = $this->model_mail->getMemo($id);
+        $this->model_mail->readMail($id);
         $this->title="Detil Surat";
         $this->script_header = 'lay-scripts/header_mail_kks';
         $this->script_footer = 'lay-scripts/footer_mail_kks';
