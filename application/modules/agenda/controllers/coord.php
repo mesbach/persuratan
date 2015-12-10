@@ -21,7 +21,7 @@ class Coord extends Koordinator_Controller {
         $this->title="Agenda Kegiatan";
         $this->script_header_spesific = 'lay-scripts/header_calendaragenda';
         $this->script_footer_spesific = 'lay-scripts/footer_calendaragenda';
-        $data["some"] = "syalal";
+        $data["some"] = base_url()."agenda/coord/getAgenda";
         $data['agenda'] = $this->model_agenda->agenda();
         $data['pendamping'] = $this->model_agenda->pendamping();
         $this->display('calendarAgenda',$data);
@@ -37,7 +37,7 @@ class Coord extends Koordinator_Controller {
         $this->display('editAgenda');
     }
     public function home(){
-        $data["some"] = "syalal";
+        $data["some"] = base_url()."agenda/coord/getAgenda";
         $this->load->view('agenda/jscal',$data);
     }
     public function save(){
@@ -79,5 +79,11 @@ class Coord extends Koordinator_Controller {
     {
         $date = str_replace('T'," ", $tanggal);
         return $date;
+    }
+    public function getAgenda(){
+        $data = $this->model_agenda->calagenda();
+
+        echo json_encode($data);
+
     }
 }
