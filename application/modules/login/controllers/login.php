@@ -9,7 +9,7 @@ if (!defined('BASEPATH'))
 
 /**
  * Description of login
- *
+ *  
  * @author andremaulana
  */
 class login extends Login_Controller {
@@ -40,7 +40,7 @@ class login extends Login_Controller {
             $this->template->set_partial("footer", $footer);
             $this->template->build("login.php");
         } else {
-            redirect("pengaduan/" . $this->session->userdata['logged_in']['privilege']);
+            //redirect("pengaduan/" . $this->session->userdata['logged_in']['privilege']);
         }
     }
     function cekLogin() {
@@ -61,18 +61,9 @@ class login extends Login_Controller {
             $session_arr = array();
             $url = "";
             if ($result != null) {
-                if ($result[0]->issuper == 1) {
-                    $url = "dashboard/coord";
-                    $session_arr = array("privilege" => "coord", "id" => $result[0]->idadmin, "nama" => $result[0]->nama);
-                } else if ($result[0]->issuper == 0) {
-                    $url = "dashboard/operator";
-                    $session_arr = array("privilege" => "operator", "id" => $result[0]->idadmin, "nama" => $result[0]->nama);
-                }
-                else if ($result[0]->issuper == 2) {
-                    $url = "dashboard/fo";
-                    $session_arr = array("privilege" => "fo", "id" => $result[0]->idadmin, "nama" => $result[0]->nama);
-                }
-                $this->session->set_userdata("logged_in", $session_arr);
+                    $url = "dashboard/".$result[0]->code;
+                    $session_arr = array("privilege" => $result[0]->code, "id" => $result[0]->idadmin, "nama" => $result[0]->nama);
+                    $this->session->set_userdata("logged_in", $session_arr);
             }
             if (count($result) == 0) {
                redirect("/");

@@ -20,8 +20,7 @@ class model_user extends CI_model {
     }
 
     function login($username, $password) {
-        $sql = 'select * from admin where admin.username= "'.$username.'" and md5("'.$password.'") =admin.password';
-        echo $sql;
+        $sql = 'select * from admin left join akses on (admin.kode=akses.id) where admin.username= "'.$username.'" and md5("'.$password.'") =admin.password';
         return $this->query($sql);
     }
 
