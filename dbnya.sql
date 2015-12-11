@@ -31,37 +31,51 @@ CREATE TABLE IF NOT EXISTS `admin` (
   PRIMARY KEY (`idadmin`),
   KEY `FK_admin_access` (`kode`),
   CONSTRAINT `FK_admin_access` FOREIGN KEY (`kode`) REFERENCES `akses` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table persuratan.admin: ~2 rows (approximately)
+-- Dumping data for table persuratan.admin: ~3 rows (approximately)
 DELETE FROM `admin`;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
 INSERT INTO `admin` (`idadmin`, `nama`, `tanggal_buat`, `alamat`, `telp`, `email`, `username`, `password`, `aktif`, `kode`, `gender`) VALUES
-	(1, 'admin', '2015-10-27 05:34:10', 'TT', '085707044393', 'misbachul.h@gmail.com', 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 1, 2, 0),
-	(2, 'operator', '2015-10-30 17:28:27', 'TT', NULL, NULL, 'operator', '4b583376b2767b923c3e1da60d10de59', NULL, 1, NULL);
+	(1, 'admin', '2015-10-27 05:34:10', 'TT', '085707044393', 'misbachul.h@gmail.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 2, 0),
+	(2, 'operator', '2015-10-30 17:28:27', 'TT', NULL, 'misbachul.h@live.com', 'operator', '21232f297a57a5a743894a0e4a801fc3', 1, 6, NULL),
+	(3, 'fo', '2015-12-08 17:30:54', 'TT', NULL, NULL, 'fo', '21232f297a57a5a743894a0e4a801fc3', 1, 1, 0);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
 
 -- Dumping structure for table persuratan.agenda
 CREATE TABLE IF NOT EXISTS `agenda` (
-  `idagenda` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `judul` text,
-  `tanggal` date DEFAULT NULL,
+  `awal` datetime DEFAULT NULL,
+  `hasil` text,
+  `akhir` datetime DEFAULT NULL,
   `isi` longtext,
   `tanggal_buat` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `file` text,
   `admin` int(11) DEFAULT NULL,
   `surat` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idagenda`),
+  `tempat` text,
+  PRIMARY KEY (`id`),
   KEY `FK_agenda_admin` (`admin`),
   KEY `FK_agenda_surat` (`surat`),
-  CONSTRAINT `FK_agenda_surat` FOREIGN KEY (`surat`) REFERENCES `surat` (`id`),
-  CONSTRAINT `FK_agenda_admin` FOREIGN KEY (`admin`) REFERENCES `admin` (`idadmin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_agenda_admin` FOREIGN KEY (`admin`) REFERENCES `admin` (`idadmin`),
+  CONSTRAINT `FK_agenda_surat` FOREIGN KEY (`surat`) REFERENCES `surat` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
--- Dumping data for table persuratan.agenda: ~0 rows (approximately)
+-- Dumping data for table persuratan.agenda: ~9 rows (approximately)
 DELETE FROM `agenda`;
 /*!40000 ALTER TABLE `agenda` DISABLE KEYS */;
+INSERT INTO `agenda` (`id`, `judul`, `awal`, `hasil`, `akhir`, `isi`, `tanggal_buat`, `file`, `admin`, `surat`, `tempat`) VALUES
+	(1, 'Keadaan', '2015-12-03 00:00:00', NULL, '2015-12-03 20:18:32', 'Syalala', '2015-12-03 20:02:18', NULL, 1, 42, 'Gedung'),
+	(8, 'Surat Pemberitahuan Undangan Acara Peresmian', '2015-12-04 23:59:00', NULL, '2015-12-04 23:58:00', 'asasasasasa', '2015-12-03 21:43:58', NULL, 1, NULL, 'Gedung'),
+	(9, 'Judul Surat', '2015-12-04 23:59:00', NULL, '2015-12-06 00:59:00', 'Keterangan', '2015-12-03 21:55:23', NULL, 1, NULL, 'Gedung'),
+	(10, 'Judul Surat', '2015-12-04 23:59:00', NULL, '2015-12-06 00:59:00', 'Keterangan', '2015-12-03 21:56:04', NULL, 1, NULL, 'Gedung'),
+	(11, 'Judul Surat', '2015-12-04 23:59:00', NULL, '2015-12-06 00:59:00', 'Keterangan', '2015-12-03 21:57:13', NULL, 1, NULL, 'Gedung'),
+	(12, 'Acara Peresmian', '2015-12-30 23:59:00', NULL, '2015-12-31 23:59:00', 'syalalala', '2015-12-03 22:01:26', NULL, 1, NULL, 'Gedung'),
+	(13, 'Acara Peresmian', '2015-12-13 00:00:00', NULL, '2015-12-06 23:00:00', '123456', '2015-12-03 22:04:32', NULL, 1, NULL, 'Gedung'),
+	(14, 'Acara Peresmian', '2015-12-13 00:00:00', NULL, '2015-12-06 23:00:00', '123456', '2015-12-03 22:05:00', NULL, 1, NULL, 'Gedung'),
+	(15, 'Agenda1', '2015-12-13 22:00:00', 'Hasil', '2015-12-12 23:00:00', 'Keterangan', '2015-12-03 22:15:12', NULL, 1, NULL, 'Gedung');
 /*!40000 ALTER TABLE `agenda` ENABLE KEYS */;
 
 
@@ -71,17 +85,18 @@ CREATE TABLE IF NOT EXISTS `akses` (
   `code` char(50) NOT NULL,
   `akses` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table persuratan.akses: ~5 rows (approximately)
 DELETE FROM `akses`;
 /*!40000 ALTER TABLE `akses` DISABLE KEYS */;
 INSERT INTO `akses` (`id`, `code`, `akses`) VALUES
 	(1, 'fo', 'Front Office'),
-	(2, 'ko', 'Koordinator'),
-	(3, 'se', 'Sekretaris'),
-	(4, 'ku', 'Ketua'),
-	(5, 'ge', 'Guest');
+	(2, 'coord', 'Koordinator'),
+	(3, 'coord', 'Sekretaris'),
+	(4, 'coord', 'Ketua'),
+	(5, 'ge', 'Guest'),
+	(6, 'operator', 'Operator');
 /*!40000 ALTER TABLE `akses` ENABLE KEYS */;
 
 
@@ -166,11 +181,11 @@ CREATE TABLE IF NOT EXISTS `memo` (
   PRIMARY KEY (`id`),
   KEY `FK__surat` (`surat`),
   KEY `fk_memo_admin1_idx` (`admin_idadmin`),
-  CONSTRAINT `FK__surat` FOREIGN KEY (`surat`) REFERENCES `surat` (`id`),
-  CONSTRAINT `fk_memo_admin1` FOREIGN KEY (`admin_idadmin`) REFERENCES `admin` (`idadmin`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_memo_admin1` FOREIGN KEY (`admin_idadmin`) REFERENCES `admin` (`idadmin`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK__surat` FOREIGN KEY (`surat`) REFERENCES `surat` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping data for table persuratan.memo: ~1 rows (approximately)
+-- Dumping data for table persuratan.memo: ~0 rows (approximately)
 DELETE FROM `memo`;
 /*!40000 ALTER TABLE `memo` DISABLE KEYS */;
 INSERT INTO `memo` (`id`, `isi`, `tanggal`, `surat`, `dari`, `admin_idadmin`) VALUES
@@ -218,9 +233,9 @@ CREATE TABLE IF NOT EXISTS `notifikasi` (
   KEY `user` (`user`),
   CONSTRAINT `FK_notifikasi_admin` FOREIGN KEY (`user`) REFERENCES `admin` (`idadmin`),
   CONSTRAINT `FK_notifikasi_surat` FOREIGN KEY (`surat`) REFERENCES `surat` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
--- Dumping data for table persuratan.notifikasi: ~13 rows (approximately)
+-- Dumping data for table persuratan.notifikasi: ~11 rows (approximately)
 DELETE FROM `notifikasi`;
 /*!40000 ALTER TABLE `notifikasi` DISABLE KEYS */;
 INSERT INTO `notifikasi` (`id`, `surat`, `isread`, `user`) VALUES
@@ -236,7 +251,8 @@ INSERT INTO `notifikasi` (`id`, `surat`, `isread`, `user`) VALUES
 	(14, 35, 1, 1),
 	(15, 30, 1, 1),
 	(16, 34, 1, 1),
-	(17, 30, 1, 1);
+	(17, 30, 1, 1),
+	(18, 1, 1, 1);
 /*!40000 ALTER TABLE `notifikasi` ENABLE KEYS */;
 
 
@@ -277,26 +293,35 @@ CREATE TABLE IF NOT EXISTS `pendamping` (
   `agenda` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_pendamping_agenda` (`agenda`),
-  CONSTRAINT `FK_pendamping_agenda` FOREIGN KEY (`agenda`) REFERENCES `agenda` (`idagenda`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_pendamping_agenda` FOREIGN KEY (`agenda`) REFERENCES `agenda` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Dumping data for table persuratan.pendamping: ~0 rows (approximately)
+-- Dumping data for table persuratan.pendamping: ~8 rows (approximately)
 DELETE FROM `pendamping`;
 /*!40000 ALTER TABLE `pendamping` DISABLE KEYS */;
+INSERT INTO `pendamping` (`id`, `nama`, `telp`, `agenda`) VALUES
+	(1, '0', '0', 12),
+	(2, 'Tunggulah', '085232039393', 12),
+	(3, '0', '0', 13),
+	(4, 'Pembimbing1', '085232039393', 13),
+	(5, 'Pembimbing1', '085232039393', 14),
+	(6, 'Pembimbing2', '085232039393', 14),
+	(7, 'Pendamping1 ', '08623672', 15),
+	(8, 'Pendamping2', '02932824', 15);
 /*!40000 ALTER TABLE `pendamping` ENABLE KEYS */;
 
 
 -- Dumping structure for table persuratan.rundown
 CREATE TABLE IF NOT EXISTS `rundown` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `waktu` text NOT NULL,
+  `waktu` time NOT NULL,
   `pic` text NOT NULL,
   `tempat` text NOT NULL,
   `agenda` int(11) NOT NULL,
   `nama` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK__agenda` (`agenda`),
-  CONSTRAINT `FK__agenda` FOREIGN KEY (`agenda`) REFERENCES `agenda` (`idagenda`)
+  CONSTRAINT `FK__agenda` FOREIGN KEY (`agenda`) REFERENCES `agenda` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table persuratan.rundown: ~0 rows (approximately)
@@ -313,12 +338,15 @@ CREATE TABLE IF NOT EXISTS `satpassus` (
   `telp` text,
   PRIMARY KEY (`id`),
   KEY `FK_satpassus_agenda` (`agenda`),
-  CONSTRAINT `FK_satpassus_agenda` FOREIGN KEY (`agenda`) REFERENCES `agenda` (`idagenda`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_satpassus_agenda` FOREIGN KEY (`agenda`) REFERENCES `agenda` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table persuratan.satpassus: ~0 rows (approximately)
+-- Dumping data for table persuratan.satpassus: ~2 rows (approximately)
 DELETE FROM `satpassus`;
 /*!40000 ALTER TABLE `satpassus` DISABLE KEYS */;
+INSERT INTO `satpassus` (`id`, `agenda`, `nama`, `telp`) VALUES
+	(1, 15, 'passus 1', '2938928'),
+	(2, 15, 'passus 2', '928323');
 /*!40000 ALTER TABLE `satpassus` ENABLE KEYS */;
 
 
@@ -350,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `surat` (
   CONSTRAINT `fk_surat_admin1` FOREIGN KEY (`idadmin`) REFERENCES `admin` (`idadmin`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
--- Dumping data for table persuratan.surat: ~10 rows (approximately)
+-- Dumping data for table persuratan.surat: ~9 rows (approximately)
 DELETE FROM `surat`;
 /*!40000 ALTER TABLE `surat` DISABLE KEYS */;
 INSERT INTO `surat` (`id`, `isi`, `lampiran`, `hasil`, `index`, `kategori`, `tanggal_terima`, `penerima`, `pengirim`, `sifat`, `perihal`, `tanggal_surat`, `tanggal_entry`, `nomor`, `jurnal`, `jenis_surat`, `isdraft`, `tembusan`, `parrent`, `judul`, `idadmin`) VALUES
@@ -367,6 +395,19 @@ INSERT INTO `surat` (`id`, `isi`, `lampiran`, `hasil`, `index`, `kategori`, `tan
 /*!40000 ALTER TABLE `surat` ENABLE KEYS */;
 
 
+-- Dumping structure for table persuratan.s_agenda_warna
+CREATE TABLE IF NOT EXISTS `s_agenda_warna` (
+  `id` int(11) NOT NULL,
+  `warna` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table persuratan.s_agenda_warna: ~0 rows (approximately)
+DELETE FROM `s_agenda_warna`;
+/*!40000 ALTER TABLE `s_agenda_warna` DISABLE KEYS */;
+/*!40000 ALTER TABLE `s_agenda_warna` ENABLE KEYS */;
+
+
 -- Dumping structure for table persuratan.tamu
 CREATE TABLE IF NOT EXISTS `tamu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -379,14 +420,17 @@ CREATE TABLE IF NOT EXISTS `tamu` (
   `disposisi` text,
   `hasil` text,
   `file` text,
+  `waktu` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_tamu_agenda` (`agenda`),
-  CONSTRAINT `FK_tamu_agenda` FOREIGN KEY (`agenda`) REFERENCES `agenda` (`idagenda`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_tamu_agenda` FOREIGN KEY (`agenda`) REFERENCES `agenda` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table persuratan.tamu: ~0 rows (approximately)
+-- Dumping data for table persuratan.tamu: ~1 rows (approximately)
 DELETE FROM `tamu`;
 /*!40000 ALTER TABLE `tamu` DISABLE KEYS */;
+INSERT INTO `tamu` (`id`, `nama`, `agenda`, `asal`, `telp`, `foto`, `keterangan`, `disposisi`, `hasil`, `file`, `waktu`) VALUES
+	(1, 'Nama', 12, 'asans', '98912', 'ajshajh', 'ahsjahsa', 'jahsjha', 'ajshja', 'jahsjah', '2015-12-10 14:35:44');
 /*!40000 ALTER TABLE `tamu` ENABLE KEYS */;
 
 

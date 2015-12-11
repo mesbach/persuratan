@@ -28,12 +28,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $i=0;  foreach ($tamu as $value) {
+                                # code...
+                            ?>
                             <tr >
-                                <td >1</td>
-                                <td ><a href="<?php echo site_url(); ?>guest/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailtamu">Pak A</a></td>
-                                <td >17 Nov 2015 Friday / 10:30</td>
-                                <td >081234567821</td>
-                                <td >Kunjungan Non Formal</td>
+                                <td ><?php echo $i; $i++;?></td>
+                                <td ><a href="<?php echo site_url(); ?>guest/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailtamu/<?php echo $value->id?>"><?php echo $value->nama?></a></td>
+                                <td ><?php echo $value->waktu;?></td>
+                                <td ><?php echo $value->telp?></td>
+                                <td ><?php echo $value->keterangan?></td>
                                 <td ><span class="label label-success" >Disetujui</span></td>
                                 <td>
                                     <div class="btn-group">
@@ -45,53 +48,8 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td >2</td>
-                                <td ><a href="<?php echo site_url(); ?>guest/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailtamu">Pak B</a></td>
-                                <td >17 Nov 2015 Friday / 13:30</td>
-                                <td >081234567111</td>
-                                <td >Kunjungan Formal</td>
-                                <td ><span class="label label-warning">Pending</span></td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle" type="button">Pilihan <span class="caret"></span></button>
-                                        <ul role="menu" class="dropdown-menu">
-                                            <li><a href="#" data-toggle="modal"><i class="fa fa-check-circle"></i> Setujui</a></li>
-                                            <li><a href="#" data-toggle="modal"><i class="fa fa-ban"></i> Tolak</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td >3</td>
-                                <td ><a href="<?php echo site_url(); ?>guest/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailtamu">Pak C</a></td>
-                                <td >18 Nov 2015 Saturday / 09:30</td>
-                                <td >081234567222</td>
-                                <td >Kunjungan CCC</td>
-                                <td ><span class="label label-info">Selesai</span></td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td >4</td>
-                                <td ><a href="<?php echo site_url(); ?>guest/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailtamu">Pak D</a></td>
-                                <td >20 Nov 2015 Monday / 09:30</td>
-                                <td >081234567333</td>
-                                <td >Kunjungan DDD</td>
-                                <td ><span class="label label-danger">Batal</span></td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td >5</td>
-                                <td ><a href="<?php echo site_url(); ?>guest/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailtamu">Pak E</a></td>
-                                <td >21 Nov 2015 Tuesday / 09:30</td>
-                                <td >081234567444</td>
-                                <td >Kunjungan EEE</td>
-                                <td ><span class="label label-danger">Ditolak</span></td>
-                                <td>
-                                </td>
-                            </tr>
+                            <?php }?>
+                            
                         </tbody>
                         <tfoot>
                             <tr >
