@@ -30,12 +30,12 @@
                     <div class="mail-sender">
                         <div class="row">
                             <div class="col-md-12">
-                                <h5><strong>Surat Masuk / Surat Keluar ( if )</strong></h5>
+                                <h5><strong><?php if($surat[0]->jenis_surat=='in') echo "Surat Masuk"; else echo "Surat Keluar";?></strong></h5>
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <center><h4><strong>Judul Surat Disini<?php //echo $surat[0]->judul;        ?></strong></h4></center>
+                                <center><h4><strong><?php echo $surat[0]->judul;        ?></strong></h4></center>
                             </div>
                         </div>
                         <div class="row">
@@ -119,22 +119,7 @@
                         </div>
                     </div>
                     <div class="view-mail">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="btn-group pull-right">
-                                    <button data-toggle="dropdown" class="btn btn-success dropdown-toggle" type="button">Pilihan <span class="caret"></span></button>
-                                    <ul role="menu" class="dropdown-menu">
-                                        <li><a href="#myModal" data-toggle="modal"><i class="fa fa-reply"></i> Balas</a></li>
-                                        <li><a href="#modalUbah" data-toggle="modal"><i class="fa fa-edit"></i> Ubah</a></li>
-                                        <li><a href="#myModal2" data-toggle="modal"><i class="fa fa-plus"></i> Memo Balasan</a></li>
-                                        <li><a href="#"><i class="fa fa-calendar-o"></i> Buat Agenda</a></li>
-                                        <li><a href="#"><i class="fa fa-print"></i> Print</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#"><i class="fa fa-trash-o"></i> Hapus</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="row">
                             <div class="col-md-12">
                                 <?php echo $surat[0]->isi; ?>
@@ -156,6 +141,22 @@
                             <a href="#">Unduh Lampiran</a>
                         </p>
                     </div>
+                    <div class="row">
+                            <div class="col-md-12">
+                                <div class="btn-group pull-right">
+                                    <button data-toggle="dropdown" class="btn btn-success dropdown-toggle" type="button">Pilihan <span class="caret"></span></button>
+                                    <ul role="menu" class="dropdown-menu">
+                                        <li><a href="#myModal" data-toggle="modal"><i class="fa fa-reply"></i> Balas</a></li>
+                                        <li><a href="#modalUbah" data-toggle="modal"><i class="fa fa-edit"></i> Ubah</a></li>
+                                        <li><a href="#myModal2" data-toggle="modal"><i class="fa fa-plus"></i> Memo Balasan</a></li>
+                                        <li><a href="#"><i class="fa fa-calendar-o"></i> Buat Agenda</a></li>
+                                        <li><a href="#"><i class="fa fa-print"></i> Print</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#"><i class="fa fa-trash-o"></i> Hapus</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </section>

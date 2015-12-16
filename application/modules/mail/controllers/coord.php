@@ -110,6 +110,7 @@ class Coord extends Koordinator_Controller {
         $data['kategori'] = $this->input->post('kategori');
         $data['tembusan'] = $this->input->post('tembusan');
         $data['jenis_surat'] = "in";
+        $data['idadmin'] = $this->session->userdata['logged_in']["id"];
         $data['isi'] = $this->input->post('isi');
         $this->db->insert("surat",$data);
         redirect('mail/coord/inbox');
@@ -136,6 +137,8 @@ class Coord extends Koordinator_Controller {
         $data['tembusan'] = $this->input->post('tembusan');
         $data['jenis_surat'] = "out";
         $data['isi'] = $this->input->post('isi');
+        $data['idadmin'] = $this->session->userdata['logged_in']["id"];
+        
         $this->db->insert("surat",$data);
         redirect('mail/coord/outbox');
     }
