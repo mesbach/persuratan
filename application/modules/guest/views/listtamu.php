@@ -1,84 +1,122 @@
-<div class="row">
-    <div class="col-md-12">
-        <section class="panel">
-            <header class="panel-heading">
-                <strong>Daftar Tamu</strong>
-            </header>
-            <div class="panel-body">
-                <div class="row form-group">
-                    <div class="col-md-9">
-                        <label><i>*data <?php echo date('d F Y', strtotime('-1 months')); ?> - <?php echo date('d F Y', strtotime('+1 months')); ?></i></label>
-                        
-                    </div>
-                    <div class="col-md-3">
-                        <button href="#modalFormTamu" data-toggle="modal" type="button" class="btn btn-warning pull-right"><i class="fa fa-plus"></i> Tamu</button>
-                    </div>
-                </div>
-                <div class="adv-table">
-                    <table  class="display table table-bordered table-striped" id="dynamic-table">
-                        <thead>
-                            <tr >
-                                <th>#</th>
-                                <th>Nama</th>
-                                <th>Tanggal & Waktu</th>
-                                <th>No. Telepon</th>
-                                <th>Keterangan</th>
-                                <th>Status</th>
-                                <th>#</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i=0;  foreach ($tamu as $value) {
-                                # code...
-                            ?>
-                            <tr >
-                                <td ><?php echo $i; $i++;?></td>
-                                <td ><a href="<?php echo site_url(); ?>guest/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailtamu/<?php echo $value->id?>"><?php echo $value->nama?></a></td>
-                                <td ><?php echo $value->waktu;?></td>
-                                <td ><?php echo $value->telp?></td>
-                                <td ><?php echo $value->keterangan?></td>
-                                <td ><span class="label label-success" >Disetujui</span></td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle" type="button">Pilihan <span class="caret"></span></button>
-                                        <ul role="menu" class="dropdown-menu">
-                                            <li><a href="#" data-toggle="modal"><i class="fa fa-check"></i> Selesai</a></li>
-                                            <li><a href="#" data-toggle="modal"><i class="fa fa-minus-circle"></i> Batal</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php }?>
-                            
-                        </tbody>
-                        <tfoot>
-                            <tr >
-                                <th>#</th>
-                                <th>Nama</th>
-                                <th>Tanggal & Waktu</th>
-                                <th>No. Telepon</th>
-                                <th>Keterangan</th>
-                                <th>Status</th>
-                                <th>#</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </section>
-    </div>
+<section class="panel">
+    <header class="panel-heading tab-bg-dark-navy-blue ">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a data-toggle="tab" href="#listtamu">Daftar Tamu</a>
+            </li>
+            <li class="">
+                <a data-toggle="tab" href="#formtamu">Form Tamu</a>
+            </li>
+        </ul>
+    </header>
+    <div class="panel-body">
+        <div class="tab-content">
+            <div id="listtamu" class="tab-pane active">
+                <div class="row">
+                    <div class="col-md-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                <strong>Daftar Tamu</strong>
+                            </header>
+                            <div class="panel-body">
+                                <div class="row form-group">
+                                    <div class="col-md-9">
+                                        <label><i>*data mulai tanggal <?php echo date('d F Y', strtotime('-14 day')); ?></i></label>
 
-</div>
-<div aria-hidden="true" aria-labelledby="myModalLabel2" role="dialog" tabindex="-1" id="modalFormTamu" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">Form Tamu</h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        
+                                    </div>
+                                </div>
+                                <div class="adv-table">
+                                    <table  class="display table table-bordered table-striped" id="dynamic-table">
+                                        <thead>
+                                            <tr >
+                                                
+                                                <th>Nama</th>
+                                                <th>Tanggal & Waktu</th>
+                                                <th>No. Telepon</th>
+                                                <th>Keterangan</th>
+                                                <th>Status</th>
+                                                <th>#</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $i = 0;
+                                            foreach ($tamu as $value) {
+                                                # code...
+                                                ?>
+                                                <tr >
+                                                    
+                                                    <td ><a target="_blank" href="<?php echo site_url(); ?>guest/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailtamu/<?php echo $value->id ?>"><?php echo $value->nama ?></a></td>
+                                                    <td ><a target="_blank" href="<?php echo site_url(); ?>guest/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailtamu/<?php echo $value->id ?>"><?php $tgl = date("d M Y H:i", strtotime($value->waktu)); echo $tgl; ?></a></td>
+                                                    <td ><a target="_blank" href="<?php echo site_url(); ?>guest/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailtamu/<?php echo $value->id ?>"><?php echo $value->telp ?></a></td>
+                                                    <td ><a target="_blank" href="<?php echo site_url(); ?>guest/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailtamu/<?php echo $value->id ?>"><?php echo $value->keterangan ?></a></td>
+                                                    <td >
+                                                        <?php 
+                                                        if($value->verifikasi==0){ echo '<span class="label label-warning" >Ditinjau</span>'; }
+                                                        else if($value->verifikasi==1){ echo '<span class="label label-success" >Disetujui</span>'; }
+                                                        else if($value->verifikasi==2){ echo '<span class="label label-info" >Selesai</span>'; }
+                                                        else if($value->verifikasi==3){ echo '<span class="label label-danger" >Batal</span>'; }
+                                                        else if($value->verifikasi==4){ echo '<span class="label label-danger" >Ditolak</span>'; }
+                                                        ?>
+                                                        
+                                                    </td>
+                                                    <td>
+
+                                                                <?php 
+                                                                if($value->verifikasi==0)
+                                                                    { 
+                                                                        echo '<div class="btn-group">
+                                                                            <button data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle" type="button">Pilihan <span class="caret"></span></button>
+                                                                            <ul role="menu" class="dropdown-menu">
+                                                                            <li><a href="'.base_url().'guest/'.$this->session->userdata['logged_in']['privilege'].'/changeverify/1/'.$value->id.'" ><i class="fa fa-check-circle"></i> Setujui</a></li>
+                                                                            <li><a href="'.base_url().'guest/'.$this->session->userdata['logged_in']['privilege'].'/changeverify/4/'.$value->id.'" ><i class="fa fa-ban"></i> Tolak</a></li></ul>
+                                                        </div>'; 
+                                                                    }
+                                                                else if($value->verifikasi==1)
+                                                                    { 
+                                                                        echo '<div class="btn-group">
+                                                                            <button data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle" type="button">Pilihan <span class="caret"></span></button>
+                                                                            <ul role="menu" class="dropdown-menu">
+                                                                            <li><a href="'.base_url().'guest/'.$this->session->userdata['logged_in']['privilege'].'/changeverify/2/'.$value->id.'" ><i class="fa fa-check"></i> Selesai</a></li>
+                                                                            <li><a href="'.base_url().'guest/'.$this->session->userdata['logged_in']['privilege'].'/changeverify/3/'.$value->id.'" ><i class="fa fa-minus-circle"></i> Batal</a></li></ul>
+                                                        </div>'; 
+                                                                    }
+                                                                
+                                                                ?>
+                                                                
+
+                                                    </td>
+                                                </tr>
+<?php } ?>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr >
+                                                
+                                                <th>Nama</th>
+                                                <th>Tanggal & Waktu</th>
+                                                <th>No. Telepon</th>
+                                                <th>Keterangan</th>
+                                                <th>Status</th>
+                                                <th>#</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                </div>
             </div>
-            <div class="modal-body">
-                <?php $this->load->view('component/formtamu'); ?>
+            <div id="formtamu" class="tab-pane">
+<?php $this->load->view('component/formtamu'); ?>
             </div>
         </div>
-    </div>
-</div>
+
+
+
+        

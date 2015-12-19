@@ -5,9 +5,9 @@ if (top.location != location) {
 }
 $(function(){
     window.prettyPrint && prettyPrint();
-    $('.default-date-picker').datepicker({
-        format: 'mm-dd-yyyy'
-    });
+//    $('.default-date-picker').datepicker({
+//        format: 'mm-dd-yyyy'
+//    });
     $('.dpYears').datepicker();
     $('.dpMonths').datepicker();
 
