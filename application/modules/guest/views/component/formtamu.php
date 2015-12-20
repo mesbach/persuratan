@@ -107,7 +107,7 @@
                 <strong><span>Lampiran :</span></strong>
                 <p>
                     <span><i class="fa fa-paperclip"></i> </span>
-                    <a href="'.base_url().'uploads/tamulampiran/'.$detil[0]->file.'">Unduh Lampiran ( '.$detil[0]->file.' )</a>
+                    <a target="_blank" href="'.base_url().'uploads/tamulampiran/'.$detil[0]->file.'">Unduh Lampiran ( '.$detil[0]->file.' )</a>
                 </p>
             </div>
         </div>

@@ -81,6 +81,12 @@ class Coord extends Koordinator_Controller {
         redirect('guest/coord');
     }
     
+    //sama dengan atas, tapi redirect ke detil tamu
+    function changeverify2($flag,$id){
+        $this->model_tamu->updateverify($id,$flag);
+        redirect('guest/coord/detailtamu/'.$id);
+    }
+    
     function do_upload($nama)
     {
         $config['upload_path'] = 'uploads/tamulampiran/';
