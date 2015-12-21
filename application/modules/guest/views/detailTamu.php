@@ -8,7 +8,7 @@
                 <button data-toggle="dropdown" class="btn btn-sm btn-warning dropdown-toggle" type="button">Pilihan <span class="caret"></span></button>
                 <ul role="menu" class="dropdown-menu">
                     <?php 
-                    if($detil[0]->verifikasi==0)
+                    if($detil[0]->verifikasi==0 && $this->session->userdata['logged_in']['privilege'] == 'coord')
                         { ?>
                         
                             
@@ -17,7 +17,7 @@
                                 <li class="divider"></li>
                                 <li><a href="<?php echo base_url().'guest/'.$this->session->userdata['logged_in']['privilege'].'/edit/'.$detil[0]->id;?>"><i class="fa fa-edit"></i> Ubah</a></li>                       
                         <?php }
-                    else if($detil[0]->verifikasi==1)
+                    else if($detil[0]->verifikasi==1 && $this->session->userdata['logged_in']['privilege'] == 'coord')
                         { ?>
                             <li><a href="<?php echo base_url().'guest/'.$this->session->userdata['logged_in']['privilege'].'/changeverify2/2/'.$detil[0]->id ?>" ><i class="fa fa-check"></i> Selesai</a></li>
                                 <li><a href="<?php echo base_url().'guest/'.$this->session->userdata['logged_in']['privilege'].'/changeverify2/3/'.$detil[0]->id ?>" ><i class="fa fa-minus-circle"></i> Batal</a></li>

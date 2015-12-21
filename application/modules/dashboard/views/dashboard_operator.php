@@ -5,7 +5,7 @@
             <span class="mini-stat-icon orange"><i class="fa fa-envelope"></i></span>
             <div class="mini-stat-info" onclick="window.location = '<?php echo site_url(); ?>mail/coord/inbox'">
                 <span><?php echo count($inbox); ?></span>
-                Surat Masuk Bulan Ini
+                Surat Masuk <?php echo date('M Y'); ?>
             </div>
         </div>
     </div>
@@ -14,7 +14,7 @@
             <span class="mini-stat-icon tar"><i class="fa fa-envelope-o"></i></span>
             <div class="mini-stat-info" onclick="window.location = '<?php echo site_url(); ?>mail/coord/outbox'">
                 <span><?php echo count($outbox); ?></span>
-                Surat Keluar Bulan Ini
+                Surat Keluar <?php echo date('M Y'); ?>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
             <span class="mini-stat-icon green"><i class="fa fa-bell-o"></i></span>
             <div class="mini-stat-info">
                 <span></span>
-                Agenda Bulan Ini
+                Agenda Bulan <?php echo date('M Y'); ?>
             </div>
         </div>
     </div>

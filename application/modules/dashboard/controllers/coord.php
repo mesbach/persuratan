@@ -13,6 +13,7 @@ class Coord extends Koordinator_Controller {
     public function index() {    
         $data['inbox'] = $this->model->getInbox();
         $data['outbox'] = $this->model->getOutbox();
+        $data['jml'] = $this->model->countguest();
         $this->title="Dashboard";
          $this->script_header_spesific = 'lay-scripts/header_calendaragenda';
         $this->script_footer_spesific = 'lay-scripts/footer_calendaragenda';

@@ -66,7 +66,7 @@
                                                     <td>
 
                                                                 <?php 
-                                                                if($value->verifikasi==0)
+                                                                if($value->verifikasi==0 && $this->session->userdata['logged_in']['privilege'] == 'coord')
                                                                     { ?>
                                                                         <div class="btn-group">
                                                                             <button data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle" type="button">Pilihan <span class="caret"></span></button>
@@ -75,7 +75,7 @@
                                                                             <li><a href="<?php base_url().'guest/'.$this->session->userdata['logged_in']['privilege'].'/changeverify/4/'.$value->id ?>" ><i class="fa fa-ban"></i> Tolak</a></li></ul>
                                                                         </div>
                                                                     <?php }
-                                                                else if($value->verifikasi==1)
+                                                                else if($value->verifikasi==1 && $this->session->userdata['logged_in']['privilege'] == 'coord')
                                                                     { ?>
                                                                         <div class="btn-group">
                                                                             <button data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle" type="button">Pilihan <span class="caret"></span></button>

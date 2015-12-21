@@ -12,9 +12,13 @@ class Koordinator_Controller extends MY_Controller{
         }
         if($this->session->userdata['logged_in']["privilege"]!="coord")
         {
-            $this->session->set_userdata(array('last_url' => current_url()));
+            
 //print_r($this->session->userdata['logged_in']);
-        //    redirect('login/login', 'refresh');
+            redirect('login/login', 'refresh');
+        }
+        else
+        {
+            $this->session->set_userdata(array('last_url' => current_url()));
         }
     }   
 }

@@ -52,4 +52,16 @@ class model extends CI_model {
         $this->db->insert('notifikasi', $data); 
         //$this->query($sql);
     }
+    
+    //hitung jumlah tamu bulan ini
+    function countguest()
+    {
+        $first = date('Y-m-01');
+        $last = date('Y-m-t');
+        $sql = "select count(tamu.id) as jml from tamu where tamu.waktu >= '$first' and tamu.waktu <= '$last'";
+        
+        return $this->query($sql);
+    }
+        
+    
 }

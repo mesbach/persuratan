@@ -36,7 +36,7 @@
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <img alt="" src="<?php echo base_url(); ?>assets/ui/images/user.png">
-                <span class="username">Front Office</span>
+                <span class="username"><?php echo $this->session->userdata['logged_in']['nama']; ?></span>
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">

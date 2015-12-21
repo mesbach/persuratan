@@ -5,7 +5,7 @@
                 <strong>Pencarian Tamu Lanjut</strong>
             </header>
             <div class="panel-body">
-                <form target="_blank" role="form" action="<?php echo base_url(); ?>search/coord/resultguest" method="POST">
+                <form target="_blank" role="form" action="<?php echo base_url(); ?>search/<?php echo $this->session->userdata['logged_in']['privilege']; ?>/resultguest" method="POST">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <div class="row form-group">
