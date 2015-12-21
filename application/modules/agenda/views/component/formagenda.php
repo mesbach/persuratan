@@ -13,16 +13,16 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-group">
-                        <label>Tanggal & Waktu Awal</label>
-                        <input class="form-control" type="datetime-local" name="awal">
+                        <label>Tanggal & Waktu Mulai</label>
+                        <input size="16" type="text" value="<?php echo date('d-m-Y H:i') ?>" name="awal" class="form_datetime form-control" value="">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-group">
-                        <label>Tanggal & Waktu Akhir</label>
-                        <input class="form-control" type="datetime-local" name="akhir">
+                        <label>Tanggal & Waktu Selesai</label>
+                        <input size="16" type="text" value="<?php echo date('d-m-Y H:i') ?>" name="akhir" class="form_datetime form-control" value="">
                     </div>
                 </div>
             </div>
@@ -107,7 +107,8 @@
                 </div>
                 <div class="col-lg-4">
                     <label >Waktu</label>
-                    <input type="text" class="form-control" id="tjamrd" placeholder="Waktu Acara">
+                    <input size="16" type="text" value="<?php echo date('d-m-Y H:i') ?>" id="tjamrd" name="tjamrd" class="form_datetime form-control" value="">
+                    <!--<input type="text" class="form-control" id="tjamrd" placeholder="Waktu Acara">-->
                 </div>
                 <div class="col-lg-4">
                     <label >Tempat</label>
@@ -147,7 +148,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama Kegiatan</th>
-                                <th>Jam</th>
+                                <th>Tanggal & Waktu</th>
                                 <th>Tempat</th>
                                 <th>PIC</th>
                                 <th>Keterangan</th>

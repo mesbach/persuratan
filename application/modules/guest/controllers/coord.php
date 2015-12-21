@@ -77,13 +77,23 @@ class Coord extends Koordinator_Controller {
     }
     
     function changeverify($flag,$id){
-        $this->model_tamu->updateverify($id,$flag);
+        if($flag==2)
+        { 
+            $wkt = date('Y-m-d H:i:s',time());
+            $this->model_tamu->updateverify2($id,$flag,$wkt); 
+        }
+        else { $this->model_tamu->updateverify($id,$flag); }
         redirect('guest/coord');
     }
     
     //sama dengan atas, tapi redirect ke detil tamu
     function changeverify2($flag,$id){
-        $this->model_tamu->updateverify($id,$flag);
+        if($flag==2)
+        { 
+            $wkt = date('Y-m-d H:i:s',time());
+            $this->model_tamu->updateverify2($id,$flag,$wkt); 
+        }
+        else { $this->model_tamu->updateverify($id,$flag); }
         redirect('guest/coord/detailtamu/'.$id);
     }
     

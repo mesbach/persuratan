@@ -50,4 +50,12 @@ class model_tamu extends CI_model {
         $this->db->update('tamu',$data);
     }
     
+    //update waktu selesai juga
+    function updateverify2($id,$flag,$time)
+    {
+        $data = array( 'verifikasi' => $flag, 'waktuberakhir' => $time );
+        $this->db->where('id',$id);
+        $this->db->update('tamu',$data);
+    }
+    
 }
