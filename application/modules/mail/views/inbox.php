@@ -78,24 +78,24 @@ $notif = $this->model->getNofication();
                             <?php foreach ($surat as $data) {
                                 if($data->isread==0){
                             ?>
-                            <tr class="unread" onclick="window.location = '<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>'">
+                            <tr class="unread" onclick="window.location = '<?php echo base_url(); ?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"]?>/viewMail/<?php echo $data->id?>'">
                                 <td class="inbox-small-cells">
                                     <input type="checkbox" class="mail-checkbox">
                                 </td>
                                 <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                                <td class="view-message  dont-show"><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->pengirim;?></a></td>
-                                <td class="view-message "><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->judul;?></a></td>
+                                <td class="view-message  dont-show"><a href="<?php echo base_url(); ?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"]?>/viewMail/<?php echo $data->id?>"><?php echo $data->pengirim;?></a></td>
+                                <td class="view-message "><a href="<?php echo base_url(); ?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"]?>/viewMail/<?php echo $data->id?>"><?php echo $data->judul;?></a></td>
                                 <td class="view-message  inbox-small-cells"><?php if(!empty($data->lampiran)){?><i class="fa fa-paperclip"></i><?php }?></td>
                                 <td class="view-message  text-right"><?php echo $data->tanggal;?></td>
                             </tr>
                             <?php } else {?>
-                            <tr class="" onclick="window.location = '<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>'"  >
+                            <tr class="" onclick="window.location = '<?php echo base_url(); ?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"]?>/viewMail/<?php echo $data->id?>'"  >
                                  <td class="inbox-small-cells">
                                     <input type="checkbox" class="mail-checkbox">
                                 </td>
                                 <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                                <td class="view-message  dont-show"><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->pengirim;?></a></td>
-                                <td class="view-message "><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->judul;?></a></td>
+                                <td class="view-message  dont-show"><a href="<?php echo base_url(); ?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"]?>/viewMail/<?php echo $data->id?>"><?php echo $data->pengirim;?></a></td>
+                                <td class="view-message "><a href="<?php echo base_url(); ?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"]?>/viewMail/<?php echo $data->id?>"><?php echo $data->judul;?></a></td>
                                 <td class="view-message  inbox-small-cells"><?php if(!empty($data->lampiran)){?><i class="fa fa-paperclip"></i><?php }?></td>
                                 <td class="view-message  text-right"><?php echo $data->tanggal;?></td>
                             </tr>

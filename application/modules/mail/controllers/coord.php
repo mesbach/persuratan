@@ -96,7 +96,7 @@ class Coord extends Koordinator_Controller {
         $this->menuMail = 'other/menuMailCoord';
         $this->display('searchresult');
     }
-    public function newMail(){
+    public function newMail($mode){
         $data['lampiran'] = $this->do_upload();
         $data['jurnal'] = $this->input->post('jurnal');
         $data['judul'] = $this->input->post('judul');
@@ -109,7 +109,7 @@ class Coord extends Koordinator_Controller {
         $data['tanggal_terima'] = $this->calendar ($this->input->post('tanggal_terima'));
         $data['kategori'] = $this->input->post('kategori');
         $data['tembusan'] = $this->input->post('tembusan');
-        $data['jenis_surat'] = "in";
+        $data['jenis_surat'] = $mode;
         $data['idadmin'] = $this->session->userdata['logged_in']["id"];
         $data['isi'] = $this->input->post('isi');
         $this->db->insert("surat",$data);

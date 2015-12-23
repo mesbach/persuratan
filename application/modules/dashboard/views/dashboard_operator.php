@@ -30,7 +30,6 @@
 </div>
 <!--mini statistics end-->
 
-
 <div class="row">
     <div class="col-md-12">
         <div class="event-calendar clearfix">

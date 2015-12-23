@@ -1,4 +1,9 @@
 <!--logo start-->
+<?php 
+$this->load->model('dashboard/model');
+$notif_surat = $data['notif_surat'] = $this->model->getNofication();
+
+?>
 <div class="brand">
 
     <a href="<?php echo base_url(); ?>dashboard/<?php echo $this->session->userdata['logged_in']['privilege'] ?>" class="logo" style="color: whitesmoke">
@@ -13,64 +18,48 @@
 <div class="nav notify-row" id="top_menu">
     <!--  notification start -->
     <ul class="nav top-menu">
+        <!-- settings start -->
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <i class="fa fa-group"></i>
+                <span class="badge bg-success"></span>
+            </a>
+            <ul class="dropdown-menu extended tasks-bar">
+                <li>
+                    <p class=""> Kunjungan Tamu Baru</p>
+                </li>
+                
+                <li class="external">
+                    <a href="#">Lihat Semua Kunjungan</a>
+                </li>
+            </ul>
+        </li>
+        <!-- settings end -->
         <!-- inbox dropdown start-->
         <li id="header_inbox_bar" class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                
                 <i class="fa fa-envelope-o"></i>
-                <span class="badge bg-important">4</span>
+                <span class="badge bg-important"><?php if(count($notif_surat)>0){ echo count($notif_surat); }?></span>
             </a>
             <ul class="dropdown-menu extended inbox">
                 <li>
-                    <p class="red">4 Surat Belum Dibaca</p>
+                    <p class="red"><?php echo count($notif_surat);?> Surat Belum Dibaca</p>
                 </li>
+                <?php foreach($notif_surat as $data){?>
                 <li>
                     <a href="#">
                         
                         <span class="subject">
-                            <span class="from">Ketua MPR</span>
-                            <span class="time">10 September 2015</span>
+                            <span class="from"><?php echo $data->jurnal; ?></span>
+                            <span class="time"><?php echo $data->tanggal;?></span>
                         </span>
                         <span class="message">
-                            Surat Masuk - Penting.
+                            <?php echo $data->perihal; ?>
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        
-                        <span class="subject">
-                            <span class="from">Panglima TNI</span>
-                            <span class="time">10 September 2015</span>
-                        </span>
-                        <span class="message">
-                            Surat Keluar - pemberitahuan
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        
-                        <span class="subject">
-                            <span class="from">Kepolri</span>
-                            <span class="time">10 September 2015</span>
-                        </span>
-                        <span class="message">
-                            Surat Keluar - Pemberitahuan
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        
-                        <span class="subject">
-                            <span class="from">Kepala BIN</span>
-                            <span class="time">11 September 2015</span>
-                        </span>
-                        <span class="message">
-                            Surat Masuk - Permohonan
-                        </span>
-                    </a>
-                </li>
+                <?php }?>
                 <li>
                     <a href="#">Lihat Semua Surat</a>
                 </li>
@@ -82,47 +71,18 @@
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
                 <i class="fa fa-bell-o"></i>
-                <span class="badge bg-warning">3</span>
+                <span class="badge bg-warning"></span>
             </a>
             <ul class="dropdown-menu extended notification">
                 <li>
-                    <p>Agenda 3 Hari Kedepan</p>
+                    <p>Agenda 0 Hari Kedepan</p>
                 </li>
-                <li>
-                    <div class="alert alert-info clearfix">
-                        
-                        <div class="noti-info">
-                            <a href="#">15:00, 13 September 2015 # Kunjungan 1.</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="alert alert-danger clearfix">
-                        
-                        <div class="noti-info">
-                            <a href="#">09:00, 14 September 2015 # Kunjungan 2.</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="alert alert-success clearfix">
-                        
-                        <div class="noti-info">
-                            <a href="#">10:00, 15 September 2015 # Kunjungan 3.</a>
-                        </div>
-                    </div>
-                </li>
-
             </ul>
         </li>
-        <!-- notification dropdown end -->
     </ul>
-    <!--  notification end -->
 </div>
 <div class="top-nav clearfix">
-    <!--search & user info start-->
     <ul class="nav pull-right top-menu">
-        <!-- user login dropdown start-->
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <img alt="" src="<?php echo base_url(); ?>assets/ui/images/user.png">
@@ -135,7 +95,5 @@
                 <li><a href="<?php echo base_url()?>login/login/logout"><i class="fa fa-key"></i> Log Out</a></li>
             </ul>
         </li>
-        <!-- user login dropdown end -->
     </ul>
-    <!--search & user info end-->
 </div>

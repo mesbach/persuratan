@@ -1,4 +1,4 @@
-<?php echo form_open_multipart('mail/coord/newMail/in');?>
+<?php echo form_open_multipart('mail/'. $this->session->userdata["logged_in"]["privilege"].'/newMail/in');?>
 
                     <div class="row">
                         <center>
@@ -23,7 +23,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="nomorsurat">Tanggal Surat</label>
-                                <input class="form-control form-control-inline input-medium default-date-picker" name="tanggal_surat" size="16" type="text" value="">
+                                <input class="form-control form-control-inline input-medium default-date-picker"  id="dp5" name="tanggal_surat" size="16" type="text" value="">
                             </div>
                             <div class="form-group">
                                 <label for="nomorsurat">Perihal</label>
