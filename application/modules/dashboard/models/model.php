@@ -21,12 +21,12 @@ class model extends CI_model {
     }
     function getInbox() {
         $id = $this->session->userdata['logged_in']["id"];
-        $sql = "select * from inbox where idadmin=$id";
+        $sql = "select * from inbox ";
         return $this->query($sql);
     }
     function getOutbox() {
         $id = $this->session->userdata['logged_in']["id"];
-        $sql = "select * from outbox where idadmin=$id";
+        $sql = "select * from outbox";
         return $this->query($sql);
     }
     function getDraft(){

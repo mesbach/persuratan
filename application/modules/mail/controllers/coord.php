@@ -122,7 +122,7 @@ class Coord extends Koordinator_Controller {
         $this->db->insert("memo",$data);
     }
     //
-    public function newOutMail(){
+    public function newOutMail($mode){
         $data['lampiran'] = $this->do_upload();
         $data['jurnal'] = $this->input->post('jurnal');
         $data['judul'] = $this->input->post('judul');
@@ -135,10 +135,9 @@ class Coord extends Koordinator_Controller {
         $data['tanggal_terima'] = $this->calendar ($this->input->post('tanggal_terima'));
         $data['kategori'] = $this->input->post('kategori');
         $data['tembusan'] = $this->input->post('tembusan');
-        $data['jenis_surat'] = "out";
+        $data['jenis_surat'] = $mode;
         $data['isi'] = $this->input->post('isi');
         $data['idadmin'] = $this->session->userdata['logged_in']["id"];
-        
         $this->db->insert("surat",$data);
         redirect('mail/coord/outbox');
     }
