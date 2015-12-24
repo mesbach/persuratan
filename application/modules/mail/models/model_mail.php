@@ -38,7 +38,7 @@ class model_mail extends CI_model {
         return $this->query($sql);      
     }
     function getMemo($id){
-        $sql = "select * from memo where surat=$id order by tanggal asc";
+        $sql = "select * from memo left join admin on (memo.admin_idadmin=admin.idadmin) where memo.surat=$id order by memo.tanggal asc";
         return $this->query($sql);
     }
     function readMail($idsurat){

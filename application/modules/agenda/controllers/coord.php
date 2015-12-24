@@ -76,7 +76,8 @@ class Coord extends Koordinator_Controller {
         $data['hasil'] = $this->input->post('hasil');
         $data['tempat'] = $this->input->post('tempat');
         $data['admin'] = $id;
-        $data['surat'] = $this->input->post('surat');
+        if($this->input->post('surat')!='')
+            $data['surat'] = $this->input->post('surat');
         if($this->input->post('mendesak')=='mendesak') $data['ispublic']=1;
         $this->db->insert('agenda',$data);
         return $this->db->insert_id();
