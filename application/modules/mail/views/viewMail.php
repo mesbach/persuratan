@@ -149,7 +149,7 @@
                                         <li><a href="#myModal" data-toggle="modal"><i class="fa fa-reply"></i> Balas</a></li>
                                         <li><a href="#modalUbah" data-toggle="modal"><i class="fa fa-edit"></i> Ubah</a></li>
                                         <li><a href="#myModal2" data-toggle="modal"><i class="fa fa-plus"></i> Memo Balasan</a></li>
-                                        <li><a href="<?php echo base_url('agenda').'/'. $this->session->userdata["logged_in"]["privilege"]?>/calendarAgenda/12"><i class="fa fa-calendar-o"></i> Buat Agenda</a></li>
+                                        <li><a href="<?php echo base_url('agenda').'/'. $this->session->userdata["logged_in"]["privilege"]?>/calendarAgenda/<?php echo $surat[0]->id;?>"><i class="fa fa-calendar-o"></i> Buat Agenda</a></li>
                                         <li><a href="#"><i class="fa fa-print"></i> Print</a></li>
                                         <li class="divider"></li>
                                         <li><a href="#"><i class="fa fa-trash-o"></i> Hapus</a></li>

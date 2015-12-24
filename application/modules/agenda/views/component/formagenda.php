@@ -120,6 +120,7 @@
                 <div class="col-lg-4">
                     <label >PIC</label>
                     <input type="text" class="form-control" id="tpicrd" placeholder="PIC">
+                    <input type="hidden" class="form-control" name="surat" value="<?php echo $id;?>">
                     <input type="hidden" class="form-control" id="countrundown" value="1">
                 </div>
                 <div class="col-lg-4">

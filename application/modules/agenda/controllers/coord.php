@@ -47,7 +47,7 @@ class Coord extends Koordinator_Controller {
         $this->createSat($id);
         
         $this->saverundown($id);
-        //redirect('agenda/coord/calendarAgenda');
+        redirect('agenda/coord/calendarAgenda');
     }
     public function createPendamping($id){
         $count = $this->input->post('countpendamping');
@@ -76,6 +76,7 @@ class Coord extends Koordinator_Controller {
         $data['hasil'] = $this->input->post('hasil');
         $data['tempat'] = $this->input->post('tempat');
         $data['admin'] = $id;
+        $data['surat'] = $this->input->post('surat');
         if($this->input->post('mendesak')=='mendesak') $data['ispublic']=1;
         $this->db->insert('agenda',$data);
         return $this->db->insert_id();
@@ -83,7 +84,6 @@ class Coord extends Koordinator_Controller {
     public function saverundown($id){
 
         $count = $this->input->post('tnamard1');
-        echo $count;
         for($i=1;$i<=$count;$i++){
             $data['nama'] = $this->input->post('tnamard'.$i);
             $data['waktu'] = date("Y-m-d H:i:00", strtotime($this->input->post('tjamrd'.$i)));
@@ -91,7 +91,6 @@ class Coord extends Koordinator_Controller {
             $data['pic'] = $this->input->post('picrd'.$i);
             $data['keterangan'] = $this->input->post('ketrd'.$i);
             $data['agenda'] = $id;
-            print_r($data); 
             $this->db->insert('rundown',$data);
         }
     }
