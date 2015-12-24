@@ -13,7 +13,6 @@ class Coord extends Koordinator_Controller {
     
     //inbox
     public function index() {
-        
         $this->display('inbox');
     }
     
@@ -96,22 +95,35 @@ class Coord extends Koordinator_Controller {
         $this->menuMail = 'other/menuMailCoord';
         $this->display('searchresult');
     }
-    public function newMail($mode){
+    public function newMail(){
+        $mode = $this->input->post('mode');
+        if($mode=="in")
+        { 
+            $data['isdraft'] = 0; 
+        }
+        else if($mode=="draft")
+        { 
+            $data['isdraft'] = 1; 
+        }
+        
         $data['lampiran'] = $this->do_upload();
         $data['jurnal'] = $this->input->post('jurnal');
         $data['judul'] = $this->input->post('judul');
         $data['nomor'] = $this->input->post('nomor');
-        $data['tanggal_surat'] = $this->calendar($this->input->post('tanggal_surat'));
+        $data['tanggal_surat'] = date("Y-m-d H:i:00", strtotime($this->input->post('tanggal_surat')));
+        //$data['tanggal_surat'] = $this->calendar($this->input->post('tanggal_surat'));
         $data['perihal'] = $this->input->post('perihal');
         $data['sifat'] = $this->input->post('mendesak')."|".$this->input->post('rahasia')."|".$this->input->post('penting')."|".$this->input->post('biasa');
         $data['pengirim'] = $this->input->post('pengirim');
         $data['penerima'] = $this->input->post('penerima');
-        $data['tanggal_terima'] = $this->calendar ($this->input->post('tanggal_terima'));
+        $data['tanggal_terima'] = date("Y-m-d H:i:00", strtotime($this->input->post('tanggal_terima')));
+        //$data['tanggal_terima'] = $this->calendar ($this->input->post('tanggal_terima'));
         $data['kategori'] = $this->input->post('kategori');
         $data['tembusan'] = $this->input->post('tembusan');
         $data['jenis_surat'] = $mode;
         $data['idadmin'] = $this->session->userdata['logged_in']["id"];
         $data['isi'] = $this->input->post('isi');
+        
         $this->db->insert("surat",$data);
         redirect('mail/coord/inbox');
     }
@@ -127,12 +139,14 @@ class Coord extends Koordinator_Controller {
         $data['jurnal'] = $this->input->post('jurnal');
         $data['judul'] = $this->input->post('judul');
         $data['nomor'] = $this->input->post('nomor');
-        $data['tanggal_surat'] = $this->calendar($this->input->post('tanggal_surat'));
+        $data['tanggal_surat'] = date("Y-m-d H:i:00", strtotime($this->input->post('tanggal_surat')));
+        //$data['tanggal_surat'] = $this->calendar($this->input->post('tanggal_surat'));
         $data['perihal'] = $this->input->post('perihal');
         $data['sifat'] = $this->input->post('mendesak')."|".$this->input->post('rahasia')."|".$this->input->post('penting')."|".$this->input->post('biasa');
         $data['pengirim'] = $this->input->post('pengirim');
         $data['penerima'] = $this->input->post('penerima');
-        $data['tanggal_terima'] = $this->calendar ($this->input->post('tanggal_terima'));
+        $data['tanggal_terima'] = date("Y-m-d H:i:00", strtotime($this->input->post('tanggal_terima')));
+        //$data['tanggal_terima'] = $this->calendar ($this->input->post('tanggal_terima'));
         $data['kategori'] = $this->input->post('kategori');
         $data['tembusan'] = $this->input->post('tembusan');
         $data['jenis_surat'] = $mode;

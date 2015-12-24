@@ -10,7 +10,22 @@
 <!-- untuk form add -->
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/ui/js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/ui/js/ckeditor/ckeditor.js"></script>
-<script src="<?php echo base_url(); ?>assets/ui/js/advanced-form.js"></script>
+<script >
+    //date picker start
+
+if (top.location != location) {
+    top.location.href = document.location.href ;
+}
+$(function(){
+    window.prettyPrint && prettyPrint();
+    $('.default-date-picker').datepicker({
+        format: 'dd-mm-yyyy'
+    });
+    
+});
+
+//date picker end
+</script>
 
 <!-- icheck -->
 <script src="<?php echo base_url(); ?>assets/ui/js/iCheck/jquery.icheck.js"></script>

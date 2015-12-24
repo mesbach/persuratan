@@ -1,4 +1,4 @@
-<?php echo form_open_multipart('mail/'. $this->session->userdata["logged_in"]["privilege"].'/newMail/in');?>
+<?php echo form_open_multipart('mail/'. $this->session->userdata["logged_in"]["privilege"].'/newMail');?>
 
                     <div class="row">
                         <center>
@@ -15,6 +15,7 @@
                         <div class="col-md-6 " >
                             <div class="form-group">
                                 <label for="nomorsurat">Jurnal</label>
+                                <input id="mode" type="text" class="form-control" name="mode" value="in" >
                                 <input type="text" class="form-control" name="jurnal" placeholder="Jurnal">
                             </div>
                             <div class="form-group">
@@ -23,7 +24,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="nomorsurat">Tanggal Surat</label>
-                                <input class="form-control form-control-inline input-medium default-date-picker"  id="dp5" name="tanggal_surat" size="16" type="text" value="">
+                                <input size="16" type="text" value="" name="tanggal_surat" class="form-control form-control-inline input-medium default-date-picker">
+                                <!--<input class="form-control form-control-inline input-medium default-date-picker"  id="dp5" name="tanggal_surat" size="16" type="text" value="">-->
                             </div>
                             <div class="form-group">
                                 <label for="nomorsurat">Perihal</label>
@@ -108,10 +110,17 @@
                     </div>
                      <div class="row">
                         <div class="col-lg-6 form-group">
-                            <button type="submit" class="btn btn-info pull-right">Simpan</button>
+                            <button type="submit" onclick="changemode('in')" class="btn btn-info pull-right">Simpan</button>
                         </div>
                         <div class="col-lg-6 form-group">
-                            <button type="submit" class="btn btn-warning pull-left">Simpan Draft</button>
+                            <button type="submit" onclick="changemode('draft')" class="btn btn-warning pull-left">Simpan Draft</button>
                         </div>
                     </div>
                 </form>
+<script>
+    function changemode(mode)
+    {
+        $("#mode").val(mode);
+    }
+
+</script>
