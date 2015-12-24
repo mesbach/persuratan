@@ -130,8 +130,9 @@ class Coord extends Koordinator_Controller {
     function memo(){
         $data['surat'] = $this->input->post('surat');
         $data['isi'] = $this->input->post('isi');
-        print_r($data);
+        $data['admin_idadmin']= $this->session->userdata['logged_in']["id"];
         $this->db->insert("memo",$data);
+        redirect('mail/coord/viewMail/'.$data['surat']);
     }
     //
     public function newOutMail($mode){

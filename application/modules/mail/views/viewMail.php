@@ -157,6 +157,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php foreach ($memo as  $data) {
+                                    echo $data->nama . " - ";
+                                    echo $data->isi ."</br>";
+                                }?>
+                            </div>
+                        </div>
                 </div>
             </div>
         </section>
@@ -185,12 +193,13 @@
                 <h4 class="modal-title">Buat Memo Balasan</h4>
             </div>
             <div class="modal-body">
-                <form role="form">
+                <form role="form" action="<?php echo base_url()?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"]?>/memo" method="POST">
                     <div class="row">
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label for="nomorsurat">Isi</label>
-                                <textarea class="form-control" rows="6" placeholder="Memo ini akan menjadi draft / rancangan surat keluar (balasan) yang akan dilengkapi oleh operator"></textarea>                                
+                                <textarea class="form-control" rows="6" name="isi" placeholder="Memo ini akan komentar untuk surat"></textarea>                                
+                                <input type="hidden" name="surat" value="<?php echo $surat[0]->id?>"></input>                                
                             </div>
 
                         </div>
