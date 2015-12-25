@@ -1,8 +1,8 @@
 <!--logo start-->
 <?php 
 $this->load->model('dashboard/model');
-$surat = $this->model->getInbox(100000);
-$notif = $this->model->getNofication();
+$surat = $this->model_mail->getInbox();
+$notif = $this->model_mail->getNofication();
 ?>
 <div class="row">
     <div class="col-sm-3">
@@ -11,7 +11,7 @@ $notif = $this->model->getNofication();
     <div class="col-sm-9">
         <section class="panel">
             <header class="panel-heading wht-bg">
-                <h4 class="gen-case">Surat Masuk <?php echo count($surat)?>
+                <h4 class="gen-case">Surat Masuk ( <?php echo count($surat)?> )
                     <form action="#" class="pull-right mail-src-position">
                         <div class="input-append">
                             <input type="text" class="form-control " placeholder="Cari Surat">
@@ -132,12 +132,12 @@ $notif = $this->model->getNofication();
                 <h4 class="modal-title">Buat Memo</h4>
             </div>
             <div class="modal-body">
-                <form role="form">
+                <form action="<?php echo base_url(); ?>mail/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/newmemo" method="post">
                     <div class="row">
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label for="nomorsurat">Isi</label>
-                                <textarea class="form-control" rows="6" placeholder="Memo ini akan menjadi draft / rancangan surat masuk yang akan dilengkapi oleh operator"></textarea>
+                                <textarea class="form-control" name="isi" rows="6" placeholder="Memo ini akan menjadi draft / rancangan surat masuk yang akan dilengkapi oleh operator"></textarea>
                             </div>
                         </div>
                     </div>

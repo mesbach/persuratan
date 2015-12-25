@@ -4,6 +4,16 @@
         <div class="btn-group pull-right" >
             <button data-toggle="dropdown" class="btn btn-sm btn-warning dropdown-toggle" type="button">Pilihan <span class="caret"></span></button>
             <ul role="menu" class="dropdown-menu">
+                <?php if($agenda[0]->verifikasi!=3){ ?>
+                <?php if($agenda[0]->verifikasi==0) { ?>
+                    <li><a href="<?php echo base_url(); ?>agenda/<?php echo $this->session->userdata["logged_in"]["privilege"] ?>/changeverifiy2/1/<?php echo $agenda[0]->id; ?>" ><i class="fa fa-check"></i> Setujui</a></li>
+                <?php } ?>
+                <?php if($agenda[0]->verifikasi==1) { ?>
+                    <li><a href="<?php echo base_url(); ?>agenda/<?php echo $this->session->userdata["logged_in"]["privilege"] ?>/changeverifiy2/2/<?php echo $agenda[0]->id; ?>" ><i class="fa fa-check"></i> Selesai</a></li>
+                <?php } ?>
+                <li><a href="<?php echo base_url(); ?>agenda/<?php echo $this->session->userdata["logged_in"]["privilege"] ?>/changeverifiy2/3/<?php echo $agenda[0]->id; ?>" ><i class="fa fa-minus-circle"></i> Batal</a></li>
+                <li class="divider"></li>
+                <?php } ?>
                 <li><a href="#"><i class="fa fa-edit"></i> Ubah</a></li>
                 <li><a href="#"><i class="fa fa-trash-o"></i> Hapus</a></li>
             </ul>
@@ -11,6 +21,7 @@
     </header>
     <div class="panel-body">
         <div class="col-md-6">
+            <?php if(!empty($agenda[0]->surat)) { ?>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-group">
@@ -21,12 +32,13 @@
                     </div>
                 </div>
             </div>
+            <?php } ?>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-group">
                         <label>Nama Agenda</label>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at. Nulla tellus elit, varius non commodo eget, mattis vel eros. In sed ornare nulla.
+                            <?php echo $agenda[0]->judul ?>
                         </p>
                     </div>
                 </div>
@@ -34,9 +46,19 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-group">
-                        <label>Tanggal & Waktu</label>
+                        <label>Tanggal & Waktu Mulai</label>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at. Nulla tellus elit, varius non commodo eget, mattis vel eros. In sed ornare nulla.
+                            <?php $jam = date("d M Y", strtotime($agenda[0]->awal));$wkt = date("H:i", strtotime($agenda[0]->awal)); echo $jam.' - '.$wkt.' WIB';?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Tanggal & Waktu Selesai</label>
+                        <p>
+                            <?php $jam = date("d M Y", strtotime($agenda[0]->akhir));$wkt = date("H:i", strtotime($agenda[0]->akhir)); echo $jam.' - '.$wkt.' WIB';?>
                         </p>
                     </div>
                 </div>
@@ -46,7 +68,7 @@
                     <div class="form-group">
                         <label>Tempat Agenda</label>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at. Nulla tellus elit, varius non commodo eget, mattis vel eros. In sed ornare nulla.
+                            <?php echo $agenda[0]->tempat ?>
                         </p>
                     </div>
                 </div>
@@ -56,7 +78,7 @@
                     <div class="form-group">
                         <label >Keterangan</label>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at. Nulla tellus elit, varius non commodo eget, mattis vel eros. In sed ornare nulla.
+                            <?php echo $agenda[0]->isi ?>
                         </p>
                     </div>
 
@@ -67,19 +89,26 @@
         <div class="col-md-6">
             <div class="row form-group">
                 <div class="col-lg-12" id="containerpendamping">
+                    <label>Status : </label> 
+                    <?php 
+                    if($agenda[0]->verifikasi==0){ echo '<span class="label label-warning" >Ditinjau</span>'; }
+                    else if($agenda[0]->verifikasi==1){ echo '<span class="label label-success" >Disetujui</span>'; }
+                    else if($agenda[0]->verifikasi==2){ echo '<span class="label label-info" >Selesai</span>'; }
+                    else if($agenda[0]->verifikasi==3){ echo '<span class="label label-danger" >Batal</span>'; }
+                    ?>
+                    
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-12" id="containerpendamping">
                     <label>Pendamping</label> 
                     <div class="row form-group">
                         <div class="col-md-12">
                             <ol>
-                                <li>
-                                    Nama Orang - 081xxx
-                                </li>
-                                <li>
-                                    Nama Orang - 081xxx
-                                </li>
-                                <li>
-                                    Nama Orang - 081xxx
-                                </li>
+                                <?php foreach ($pendamping as $v) {
+                                    echo '<li>'.$v->nama.' - '.$v->telp.'</li>';
+                                     
+                                 } ?>
                             </ol>
                         </div>
                     </div>
@@ -91,15 +120,10 @@
                     <div class="row form-group" >
                         <div class="col-md-12">
                             <ol>
-                                <li>
-                                    Nama Orang - 081xxx
-                                </li>
-                                <li>
-                                    Nama Orang - 081xxx
-                                </li>
-                                <li>
-                                    Nama Orang - 081xxx
-                                </li>
+                                <?php foreach ($satpassus as $v) {
+                                    echo '<li>'.$v->nama.' - '.$v->telp.'</li>';
+                                     
+                                 } ?>
                             </ol>
                         </div>
                     </div>
@@ -110,7 +134,9 @@
                     <label>Lampiran</label>
                     <p>
                         <span><i class="fa fa-paperclip"></i> </span>
-                        <a href="#"> Unduh</a>
+                            <?php if(isset($agenda[0]->file)) { ?>
+                                <a target="_blank" href="<?php echo base_url().'uploads/fileagenda/'.$agenda[0]->file;?>">Unduh Lampiran ( <?php echo $agenda[0]->file ?> )</a>
+                            <?php } else { echo '<a>Tidak Ada Lampiran</a>'; }  ?>
                     </p>
 
                 </div>
@@ -132,34 +158,26 @@
                         <table class="table table-bordered table-striped table-condensed cf">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Nama Kegiatan</th>
                                     <th>Jam</th>
                                     <th>Tempat</th>
                                     <th>PIC</th>
                                     <th>Keterangan</th>
-                                    <th>#</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody id="tablerundown">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Nama Kegiatan</td>
-                                    <td>Jam</td>
-                                    <td>Tempat</td>
-                                    <td>PIC</td>
-                                    <td>Keterangan</td>
-                                    <td>#</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Nama Kegiatan</td>
-                                    <td>Jam</td>
-                                    <td>Tempat</td>
-                                    <td>PIC</td>
-                                    <td>Keterangan</td>
-                                    <td>#</td>
-                                </tr>
+                                <?php foreach ($rundown as $v) { ?>
+                                     <tr>
+                                        <td><?php echo $v->nama; ?></td>
+                                        <td><?php $jam = date("d M Y", strtotime($agenda[0]->akhir));$wkt = date("H:i", strtotime($agenda[0]->akhir)); echo $jam.' - '.$wkt.' WIB';?></td>
+                                        <td><?php echo $v->tempat; ?></td>
+                                        <td><?php echo $v->pic; ?></td>
+                                        <td><?php echo $v->keterangan; ?></td>
+                                        
+                                    </tr>
+                                 <?php } ?>
+                                
                             </tbody>
                         </table>
                     </section>

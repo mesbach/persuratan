@@ -21,12 +21,12 @@ class model extends CI_model {
     }
     function getInbox() {
         $id = $this->session->userdata['logged_in']["id"];
-        $sql = "select * from inbox ";
+        $sql = "select * from inbox  where inbox.parrent is null";
         return $this->query($sql);
     }
     function getOutbox() {
         $id = $this->session->userdata['logged_in']["id"];
-        $sql = "select * from outbox";
+        $sql = "select * from outbox where outbox.parrent is null";
         return $this->query($sql);
     }
     function getDraft(){

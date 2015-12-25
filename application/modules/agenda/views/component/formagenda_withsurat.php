@@ -119,7 +119,7 @@
                 <div class="col-lg-4">
                     <label >PIC</label>
                     <input type="text" class="form-control" id="tpicrd" placeholder="PIC">
-                    <input type="hidden" class="form-control" id="countrundown" value="1">
+                    <input type="hidden" class="form-control" id="countrundown" name="countrundown" value="1">
                 </div>
                 <div class="col-lg-4">
                     <label >Keterangan</label>
@@ -179,9 +179,11 @@
             <div class="icheck minimal">
                 <div class="checkbox single-row">
                     <label>
-                        <input type="checkbox" name="mendesak" value="mendesak">
-                        <strong>Informasi ini Dapat Diakses Publik</strong>
-                    </label>
+                                <input type="checkbox" <?php if (isset($detil) && $detil[0]->publik == 1) {
+        echo 'checked="true"';
+    } ?>  name="forpublic" value="yes">
+                                <strong>Informasi ini Dapat Diakses Publik</strong>
+                            </label>
                 </div>
             </div>
         </div>

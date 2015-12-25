@@ -12,7 +12,6 @@ $draft_surat  = $this->model->getDraft();
             <li class="<?php echo ($fungsi == 'outbox') ? 'active' : ''; ?>"><a href="<?php echo base_url(); ?>mail/coord/outbox"> <i class="fa fa-envelope-o"></i> Surat Keluar</a></li>
             <li class="<?php echo ($fungsi == 'draft') ? 'active' : ''; ?>"><a href="<?php echo base_url(); ?>mail/coord/draft"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-info pull-right inbox-notification"><?php echo count($draft_surat)?></span></a></li>
             <!--<li class="<?php //echo ($fungsi == 'trash') ? 'active' : ''; ?>"><a href="#"> <i class="fa fa-trash-o"></i> Kotak Sampah</a></li>-->
-            <li class="<?php echo ($fungsi == 'search') ? 'active' : ''; ?>"><a href="<?php echo base_url(); ?>mail/coord/search"> <i class="fa fa-search"></i> Pencarian Arsip</a></li>
         </ul>
     </div>
 </section>

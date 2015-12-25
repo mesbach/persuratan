@@ -104,7 +104,7 @@
                 <div class="col-lg-4">
                     <label >PIC</label>
                     <input type="text" class="form-control" id="tpicrd" placeholder="PIC">
-                    <input type="hidden" class="form-control" id="countrundown" value="1">
+                    <input type="hidden" class="form-control" id="countrundown" name="countrundown" value="1">
                 </div>
                 <div class="col-lg-4">
                     <label >Keterangan</label>

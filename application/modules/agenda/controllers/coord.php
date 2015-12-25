@@ -28,12 +28,16 @@ class Coord extends Koordinator_Controller {
         $this->display('calendarAgenda',$data);
     }
     
-    public function detailAgenda() {
+    public function detailAgenda($id) {
+        $data['agenda'] = $this->model_agenda->getdetailagenda($id);
+        $data['pendamping'] = $this->model_agenda->getpendamping($id);
+        $data['satpassus'] = $this->model_agenda->getsatpassus($id);
+        $data['rundown'] = $this->model_agenda->getrundown($id);
         $this->title="Detil Agenda Kegiatan";
-        $this->display('detailAgenda');
+        $this->display('detailAgenda',$data);
     }
     
-    public function editAgenda() {
+    public function editAgenda($id) {
         $this->title="Ubah Agenda Kegiatan";
         $this->display('editAgenda');
     }
@@ -45,7 +49,6 @@ class Coord extends Koordinator_Controller {
         $id = $this->saveAgenda();
         $this->createPendamping($id);
         $this->createSat($id);
-        
         $this->saverundown($id);
         redirect('agenda/coord/calendarAgenda');
     }
@@ -69,6 +72,9 @@ class Coord extends Koordinator_Controller {
     } 
     public function saveAgenda(){
         $id = $this->session->userdata['logged_in']["id"];
+        if($this->input->post('forpublic')=='yes')
+        {$data['publik'] = 1;}
+        else {$data['publik'] = 0;}
         $data['judul'] = $this->input->post('judul');
         $data['awal'] = date("Y-m-d H:i:00", strtotime($this->input->post('awal')));
         $data['akhir'] = date("Y-m-d H:i:00", strtotime($this->input->post('akhir')));
@@ -76,6 +82,8 @@ class Coord extends Koordinator_Controller {
         $data['hasil'] = $this->input->post('hasil');
         $data['tempat'] = $this->input->post('tempat');
         $data['admin'] = $id;
+        $data['verifikasi'] = 1;
+        $data['file'] = $this->do_upload($this->input->post('judul'));
         if($this->input->post('surat')!='')
             $data['surat'] = $this->input->post('surat');
         if($this->input->post('mendesak')=='mendesak') $data['ispublic']=1;
@@ -84,10 +92,11 @@ class Coord extends Koordinator_Controller {
     }
     public function saverundown($id){
 
-        $count = $this->input->post('tnamard1');
+        $temp = $this->input->post('countrundown');
+        $count = $temp-1;
         for($i=1;$i<=$count;$i++){
-            $data['nama'] = $this->input->post('tnamard'.$i);
-            $data['waktu'] = date("Y-m-d H:i:00", strtotime($this->input->post('tjamrd'.$i)));
+            $data['nama'] = $this->input->post('namard'.$i);
+            $data['waktu'] = date("Y-m-d H:i:00", strtotime($this->input->post('jamrd'.$i)));
             $data['tempat'] = $this->input->post('tempatrd'.$i);
             $data['pic'] = $this->input->post('picrd'.$i);
             $data['keterangan'] = $this->input->post('ketrd'.$i);
@@ -95,15 +104,54 @@ class Coord extends Koordinator_Controller {
             $this->db->insert('rundown',$data);
         }
     }
+    
     private function calendar($tanggal)
     {
         $date = str_replace('T'," ", $tanggal);
         return $date;
     }
+    
     public function getAgenda(){
         $data = $this->model_agenda->calagenda();
 
         echo json_encode($data);
+    }
+    
+    // untuk upload file
+    function do_upload($nama)
+    {
+        $config['upload_path'] = 'uploads/fileagenda/';
+        $config['allowed_types'] = 'zip|rar|pdf';
+        $config['max_size'] = '5000';
+        $config['encrypt_name'] = false;
+        $tgl = date("d-m-Y", time());
+        $new_name = $tgl.'_'.$nama;
+        $config['file_name'] = $new_name;
+        $this->load->library('upload', $config);
 
+        if ( ! $this->upload->do_upload("fileagenda"))
+        {
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+        }
+        else
+        {
+            $data = array('upload_data' => $this->upload->data());
+//            print_r($data);   
+            return $data['upload_data']['file_name'];
+        }
+        return "";
+    }
+    
+    function changeverifiy($flag,$id)
+    {
+        $this->model_agenda->updateverify($id,$flag);
+        redirect('agenda/coord/calendarAgenda/');
+    }
+    
+    function changeverifiy2($flag,$id)
+    {
+        $this->model_agenda->updateverify($id,$flag);
+        redirect('agenda/coord/detailAgenda/'.$id);
     }
 }

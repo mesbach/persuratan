@@ -15,7 +15,7 @@ class model_agenda extends CI_model {
     }
     function agenda(){
         $id = $this->session->userdata['logged_in']["id"];
-        $sql = "select *, if(agenda.awal > now(),'disetujui',if(agenda.akhir>now(),'berjalan','selesai')) as 'status' from agenda ";
+        $sql = "select *, if(agenda.awal > now(),'disetujui',if(agenda.akhir>now(),'berjalan','selesai')) as 'status' from agenda order by agenda.awal asc";
         return $this->query($sql);
     }
     function calagenda(){
@@ -26,5 +26,40 @@ from agenda ";
     function pendamping(){
      $sql = "select * from pendamping";
         return $this->query($sql);   
+    }
+    
+    function getdetailagenda($id)
+    {
+        $this->db->where('id',$id);
+        $hasil = $this->db->get('agenda');
+        return $hasil->result();
+    }
+    
+    function getpendamping($idagenda)
+    {
+        $this->db->where('agenda',$idagenda);
+        $hasil = $this->db->get('pendamping');
+        return $hasil->result();
+    }
+    
+    function getsatpassus($idagenda)
+    {
+        $this->db->where('agenda',$idagenda);
+        $hasil = $this->db->get('satpassus');
+        return $hasil->result();
+    }
+    
+    function getrundown($idagenda)
+    {
+        $this->db->where('agenda',$idagenda);
+        $hasil = $this->db->get('rundown');
+        return $hasil->result();
+    }
+    
+    function updateverify($id,$flag)
+    {
+        $data = array( 'verifikasi' => $flag );
+        $this->db->where('id',$id);
+        $this->db->update('agenda',$data);
     }
 }

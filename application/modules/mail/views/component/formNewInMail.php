@@ -15,8 +15,8 @@
                         <div class="col-md-6 " >
                             <div class="form-group">
                                 <label for="nomorsurat">Jurnal</label>
-                                <input id="mode" type="text" class="form-control" name="mode" value="in" >
-                                <input type="text" class="form-control" name="jurnal" placeholder="Jurnal">
+                                <input id="mode" type="hidden" class="form-control" name="mode" value="in" >
+                                <input type="text" value="<?php if(!empty($jurnal)) { echo $jurnal; } ?>" readonly class="form-control" name="jurnal" placeholder="Jurnal">
                             </div>
                             <div class="form-group">
                                 <label for="nomorsurat">Nomor Surat</label>
@@ -35,25 +35,25 @@
                                 <label for="nomorsurat">Sifat</label>
                                 <div class="checkbox single-row">
                                     <label>
-                                        <input type="checkbox" name="mendesak" value="mendesak">
+                                        <input type="checkbox" name="mendesak" value="Mendesak">
                                         Mendesak
                                     </label>
                                 </div>
                                 <div class="checkbox single-row">
                                     <label>
-                                        <input type="checkbox" name="rahasia" value="rahasia">
+                                        <input type="checkbox" name="rahasia" value="Rahasia">
                                         Rahasia
                                     </label>
                                 </div>
                                 <div class="checkbox single-row">
                                     <label>
-                                        <input type="checkbox" name="penting" value="penting">
+                                        <input type="checkbox" name="penting" value="Penting">
                                         Penting
                                     </label>
                                 </div>
                                 <div class="checkbox single-row">
                                     <label>
-                                        <input type="checkbox" name="biasa" value="biasa">
+                                        <input type="checkbox" name="biasa" value="Biasa">
                                         Biasa
                                     </label>
                                 </div>

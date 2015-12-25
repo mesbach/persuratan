@@ -22,7 +22,35 @@ class Coord extends Koordinator_Controller {
         $this->script_header = 'lay-scripts/header_mail_kks';
         $this->script_footer = 'lay-scripts/footer_mail_kks';
         $this->menuMail = 'other/menuMailCoord';
-        $this->display('inbox');
+        $no = $this->model_mail->getjurnal();
+//        print_r($no);
+        if(!empty($no))
+        {
+            $data['jurnal'] = $this->hitungjurnal($no[0]->jurnal);
+        }
+        else
+        {
+            $newjurnal = 1;
+            $newjurnal .= '/'.date('m').'/'.date('Y');
+            $data['jurnal'] = $newjurnal;
+        }
+        $this->display('inbox',$data);
+    }
+    
+    public function hitungjurnal($param) {
+        $arr = explode('/', $param);
+        $no = $arr[0];
+        if(($arr[1]==date('m')) && ($arr[2]==date('Y')) )
+        {
+            $newjurnal = $no+1;
+            $newjurnal .= '/'.date('m').'/'.date('Y');
+        }
+        else
+        {
+            $newjurnal = 1;
+            $newjurnal .= '/'.date('m').'/'.date('Y');
+        }
+        return $newjurnal;
     }
     
     //outbox
@@ -61,6 +89,15 @@ class Coord extends Koordinator_Controller {
     public function viewMail($id) {
         $data['surat'] = $this->model_mail->getMail($id);
         $data['memo'] = $this->model_mail->getMemo($id);
+        $parent = $this->model_mail->getmailparent($id);
+        if(is_null($parent[0]->parrent))
+        {
+            $data['version'] = $this->model_mail->getmailversion($id);
+        }
+        else
+        {
+            $data['version'] = $this->model_mail->getmailversion2($id,$parent[0]->parrent);
+        }
         $this->model_mail->readMail($id);
         $this->title="Detil Surat";
         $this->script_header = 'lay-scripts/header_mail_kks';
@@ -95,6 +132,18 @@ class Coord extends Koordinator_Controller {
         $this->menuMail = 'other/menuMailCoord';
         $this->display('searchresult');
     }
+    
+    public function newmemo() {
+        $data['isdraft'] = 1; 
+        $data['isi'] = $this->input->post('isi');
+        $data['idadmin'] = $this->session->userdata['logged_in']["id"];
+        $data['tanggal_surat'] = date("Y-m-d H:i:00", time());
+        $data['perihal'] = 'Draft';
+        $data['perihal'] = 'Draft';
+        $this->db->insert("surat",$data);
+        redirect('mail/coord/inbox');
+    }
+    
     public function newMail(){
         $mode = $this->input->post('mode');
         if($mode=="in")
@@ -106,7 +155,7 @@ class Coord extends Koordinator_Controller {
             $data['isdraft'] = 1; 
         }
         
-        $data['lampiran'] = $this->do_upload();
+        $data['lampiran'] = $this->do_upload($this->input->post('judul'));
         $data['jurnal'] = $this->input->post('jurnal');
         $data['judul'] = $this->input->post('judul');
         $data['nomor'] = $this->input->post('nomor');
@@ -120,13 +169,60 @@ class Coord extends Koordinator_Controller {
         //$data['tanggal_terima'] = $this->calendar ($this->input->post('tanggal_terima'));
         $data['kategori'] = $this->input->post('kategori');
         $data['tembusan'] = $this->input->post('tembusan');
-        $data['jenis_surat'] = $mode;
+        $data['jenis_surat'] = 'in';
         $data['idadmin'] = $this->session->userdata['logged_in']["id"];
         $data['isi'] = $this->input->post('isi');
         
         $this->db->insert("surat",$data);
         redirect('mail/coord/inbox');
     }
+    
+    function editinmail()
+    {
+        $data['parrent'] = $this->input->post('idsurat');
+        $data['lampiran'] = $this->do_upload();
+        $data['jurnal'] = $this->input->post('jurnal');
+        $data['judul'] = $this->input->post('judul');
+        $data['nomor'] = $this->input->post('nomor');
+        $data['tanggal_surat'] = date("Y-m-d H:i:00", strtotime($this->input->post('tanggal_surat')));
+        $data['perihal'] = $this->input->post('perihal');
+        $data['sifat'] = $this->input->post('mendesak')."|".$this->input->post('rahasia')."|".$this->input->post('penting')."|".$this->input->post('biasa');
+        $data['pengirim'] = $this->input->post('pengirim');
+        $data['penerima'] = $this->input->post('penerima');
+        $data['tanggal_terima'] = date("Y-m-d H:i:00", strtotime($this->input->post('tanggal_terima')));
+        $data['kategori'] = $this->input->post('kategori');
+        $data['tembusan'] = $this->input->post('tembusan');
+        $data['jenis_surat'] = 'in';
+        $data['idadmin'] = $this->session->userdata['logged_in']["id"];
+        $data['isi'] = $this->input->post('isi');
+        $this->db->insert("surat",$data);
+        $newid = $this->db->insert_id();
+        redirect('mail/coord/viewMail/'.$newid);        
+    }
+    
+    function editoutmail()
+    {
+        $data['parrent'] = $this->input->post('idsurat');
+//        $data['lampiran'] = $this->do_upload();
+        $data['judul'] = $this->input->post('judul');
+        $data['nomor'] = $this->input->post('nomor');
+        $data['tanggal_surat'] = date("Y-m-d H:i:00", strtotime($this->input->post('tanggal_surat')));
+        $data['perihal'] = $this->input->post('perihal');
+        $data['sifat'] = $this->input->post('mendesak')."|".$this->input->post('rahasia')."|".$this->input->post('penting')."|".$this->input->post('biasa');
+        $data['pengirim'] = $this->input->post('pengirim');
+        $data['penerima'] = $this->input->post('penerima');
+        $data['tanggal_terima'] = date("Y-m-d H:i:00", strtotime($this->input->post('tanggal_terima')));
+        $data['kategori'] = $this->input->post('kategori');
+        $data['tembusan'] = $this->input->post('tembusan');
+        $data['jenis_surat'] = 'out';
+        $data['idadmin'] = $this->session->userdata['logged_in']["id"];
+        $data['isi'] = $this->input->post('isi');
+        print_r($data);
+//        $this->db->insert("surat",$data);
+//        $newid = $this->db->insert_id();
+//        redirect('mail/coord/viewMail/'.$newid);        
+    }
+    
     function memo(){
         $data['surat'] = $this->input->post('surat');
         $data['isi'] = $this->input->post('isi');
@@ -135,22 +231,28 @@ class Coord extends Koordinator_Controller {
         redirect('mail/coord/viewMail/'.$data['surat']);
     }
     //
-    public function newOutMail($mode){
+    public function newOutMail(){
+        $mode = $this->input->post('mode');
+        if($mode=="out")
+        { 
+            $data['isdraft'] = 0; 
+        }
+        else if($mode=="draft")
+        { 
+            $data['isdraft'] = 1; 
+        }
         $data['lampiran'] = $this->do_upload();
-        $data['jurnal'] = $this->input->post('jurnal');
         $data['judul'] = $this->input->post('judul');
         $data['nomor'] = $this->input->post('nomor');
         $data['tanggal_surat'] = date("Y-m-d H:i:00", strtotime($this->input->post('tanggal_surat')));
-        //$data['tanggal_surat'] = $this->calendar($this->input->post('tanggal_surat'));
         $data['perihal'] = $this->input->post('perihal');
         $data['sifat'] = $this->input->post('mendesak')."|".$this->input->post('rahasia')."|".$this->input->post('penting')."|".$this->input->post('biasa');
         $data['pengirim'] = $this->input->post('pengirim');
         $data['penerima'] = $this->input->post('penerima');
-        $data['tanggal_terima'] = date("Y-m-d H:i:00", strtotime($this->input->post('tanggal_terima')));
-        //$data['tanggal_terima'] = $this->calendar ($this->input->post('tanggal_terima'));
+        $data['tanggal_terima'] = date("Y-m-d H:i:00", strtotime($this->input->post('tanggal_surat')));
         $data['kategori'] = $this->input->post('kategori');
         $data['tembusan'] = $this->input->post('tembusan');
-        $data['jenis_surat'] = $mode;
+        $data['jenis_surat'] = 'out';
         $data['isi'] = $this->input->post('isi');
         $data['idadmin'] = $this->session->userdata['logged_in']["id"];
         $this->db->insert("surat",$data);
@@ -164,13 +266,14 @@ class Coord extends Koordinator_Controller {
         return $date[2]."-".$date[0].'-'.$date[1];
     }
     // untuk upload file
-    function do_upload()
+    function do_upload($nama)
     {
-        $config['upload_path'] = 'uploads/';
-        $config['allowed_types'] = 'zip|rar';
+        $config['upload_path'] = 'uploads/filesurat/';
+        $config['allowed_types'] = 'zip|rar|pdf';
         $config['max_size'] = '5000';
-        $config['encrypt_name'] = TRUE;
-        $new_name = time().$_FILES["filesurat"]['name'];
+        $config['encrypt_name'] = false;
+        $tgl = date("d-m-Y", time());
+        $new_name = $tgl.'_'.$nama;
         $config['file_name'] = $new_name;
         $this->load->library('upload', $config);
 
@@ -182,7 +285,7 @@ class Coord extends Koordinator_Controller {
         else
         {
             $data = array('upload_data' => $this->upload->data());
-            print_r($data);   
+//            print_r($data);   
             return $data['upload_data']['file_name'];
         }
         return "";

@@ -2,7 +2,7 @@
     <header class="panel-heading tab-bg-dark-navy-blue ">
         <ul class="nav nav-tabs">
             <li class="active">
-                <a data-toggle="tab" href="#kalender">Kalendar</a>
+                <a data-toggle="tab" href="#kalender">Kalender</a>
             </li>
             <li class="">
                 <a data-toggle="tab" href="#reqAgenda">Daftar Agenda</a>

@@ -1,5 +1,5 @@
+<?php echo form_open_multipart('agenda/'. $this->session->userdata["logged_in"]["privilege"].'/save');?>
 
-<form role="form" action="<?php echo base_url()?>agenda/coord/save" method="POST">
     <div class="row">
         <div class="col-md-6">
             <div class="row">
@@ -121,7 +121,7 @@
                     <label >PIC</label>
                     <input type="text" class="form-control" id="tpicrd" placeholder="PIC">
                     <input type="hidden" class="form-control" name="surat" value="<?php echo $id;?>">
-                    <input type="hidden" class="form-control" id="countrundown" value="1">
+                    <input type="hidden" class="form-control" id="countrundown" name="countrundown" value="1">
                 </div>
                 <div class="col-lg-4">
                     <label >Keterangan</label>
@@ -170,7 +170,7 @@
         <div class="col-lg-12">
             <div class="form-group">
                 <label for="exampleInputFile">File Lampiran</label>
-                <input type="file" id="exampleInputFile" name="fileagenda">
+                <input type="file" id="exampleInputFile" name="fileagenda" accept=".pdf,.zip, .rar, .7zip|compress file/*">
                 <p class="help-block">Berupa pdf / zip. Ukuran Maksimal 5Mb.</p>
             </div>
         </div>
@@ -182,9 +182,11 @@
 
                     <div class="checkbox single-row">
                         <label>
-                            <input type="checkbox" name="mendesak" value="mendesak">
-                            <strong>Informasi ini Dapat Diakses Publik</strong>
-                        </label>
+                                <input type="checkbox" <?php if (isset($detil) && $detil[0]->publik == 1) {
+        echo 'checked="true"';
+    } ?>  name="forpublic" value="yes">
+                                <strong>Informasi ini Dapat Diakses Publik</strong>
+                            </label>
                     </div>
                 </div>
             </div>

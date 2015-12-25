@@ -21,14 +21,22 @@ class model_mail extends CI_model {
     }
     function getInbox() {
         $id = $this->session->userdata['logged_in']["id"];
-        $sql = "select * from inbox";
+        $sql = "select * from inbox where inbox.parrent is null";
         return $this->query($sql);
     }
     function getOutbox() {
         $id = $this->session->userdata['logged_in']["id"];
-        $sql = "select * from outbox";
+        $sql = "select * from outbox where outbox.parrent is null";
         return $this->query($sql);
     }
+    
+    function getjurnal(){
+        $sql = "select jurnal from surat 
+                where surat.isdraft = 0 and surat.jenis_surat = 'in'
+                order by surat.id desc limit 1";
+        return $this->query($sql);
+    }
+    
     function getDraft(){
         $sql = 'select * from draft';
         return $this->query($sql);   
@@ -53,5 +61,29 @@ class model_mail extends CI_model {
             );
             $this->db->insert('notifikasi', $data); 
         }
+    }
+    
+    function editMail($id,$data)
+    {
+        $this->db->where('id',$id);
+        $this->db->update('surat',$data);
+    }
+    
+    function getmailparent($id)
+    {
+        $sql = "select surat.parrent from surat where surat.id = $id";
+        return $this->query($sql);
+    }
+    
+    function getmailversion($id)
+    {
+        $sql = "select * from surat where surat.id = $id or surat.parrent = $id order by surat.id asc";
+        return $this->query($sql);
+    }
+    
+    function getmailversion2($id,$idparent)
+    {
+        $sql = "select * from surat where surat.id = $id or surat.parrent = $idparent or surat.id = $idparent order by surat.id asc";
+        return $this->query($sql);
     }
 }
