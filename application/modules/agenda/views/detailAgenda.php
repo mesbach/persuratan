@@ -14,7 +14,7 @@
                 <li><a href="<?php echo base_url(); ?>agenda/<?php echo $this->session->userdata["logged_in"]["privilege"] ?>/changeverifiy2/3/<?php echo $agenda[0]->id; ?>" ><i class="fa fa-minus-circle"></i> Batal</a></li>
                 <li class="divider"></li>
                 <?php } ?>
-                <li><a href="#"><i class="fa fa-edit"></i> Ubah</a></li>
+                <li><a href="<?php echo base_url(); ?>agenda/<?php echo $this->session->userdata["logged_in"]["privilege"] ?>/editAgenda/<?php echo $agenda[0]->id; ?>"><i class="fa fa-edit"></i> Ubah</a></li>
                 <li><a href="#"><i class="fa fa-trash-o"></i> Hapus</a></li>
             </ul>
         </div>
@@ -170,7 +170,7 @@
                                 <?php foreach ($rundown as $v) { ?>
                                      <tr>
                                         <td><?php echo $v->nama; ?></td>
-                                        <td><?php $jam = date("d M Y", strtotime($agenda[0]->akhir));$wkt = date("H:i", strtotime($agenda[0]->akhir)); echo $jam.' - '.$wkt.' WIB';?></td>
+                                        <td><?php $jam = date("d M Y", strtotime($v->waktu));$wkt = date("H:i", strtotime($v->waktu)); echo $jam.' - '.$wkt.' WIB';?></td>
                                         <td><?php echo $v->tempat; ?></td>
                                         <td><?php echo $v->pic; ?></td>
                                         <td><?php echo $v->keterangan; ?></td>

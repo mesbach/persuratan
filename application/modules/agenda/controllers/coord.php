@@ -17,14 +17,14 @@ class Coord extends Koordinator_Controller {
         $this->display('calendarAgenda');
     }
     
-    public function calendarAgenda($id=null) {
+    public function calendarAgenda() {
         $this->title="Agenda Kegiatan";
         $this->script_header_spesific = 'lay-scripts/header_calendaragenda';
         $this->script_footer_spesific = 'lay-scripts/footer_calendaragenda';
         $data["some"] = base_url()."agenda/coord/getAgenda";
         $data['agenda'] = $this->model_agenda->agenda();
         $data['pendamping'] = $this->model_agenda->pendamping();
-        $data['id']=$id;
+        $data['id']='';
         $this->display('calendarAgenda',$data);
     }
     
@@ -39,8 +39,42 @@ class Coord extends Koordinator_Controller {
     
     public function editAgenda($id) {
         $this->title="Ubah Agenda Kegiatan";
-        $this->display('editAgenda');
+        $data['agendaedit'] = $this->model_agenda->getdetailagenda($id);
+        $data['pendampingedit'] = $this->model_agenda->getpendamping($id);
+        $data['satpassusedit'] = $this->model_agenda->getsatpassus($id);
+        $data['rundownedit'] = $this->model_agenda->getrundown($id);
+        $this->display('editAgenda',$data);
     }
+    
+    public function updateagenda($id) {
+        $id = $this->session->userdata['logged_in']["id"];
+        if($this->input->post('forpublic')=='yes')
+        {$data['publik'] = 1;}
+        else {$data['publik'] = 0;}
+        $idagenda = $this->input->post('idagenda');
+        $data['judul'] = $this->input->post('judul');
+        $data['awal'] = date("Y-m-d H:i:00", strtotime($this->input->post('awal')));
+        $data['akhir'] = date("Y-m-d H:i:00", strtotime($this->input->post('akhir')));
+        $data['isi'] = $this->input->post('isi');
+        $data['hasil'] = $this->input->post('hasil');
+        $data['tempat'] = $this->input->post('tempat');
+        $data['admin'] = $id;
+        $data['verifikasi'] = 1;
+        $data['file'] = $this->do_upload($this->input->post('judul'));
+        if($this->input->post('surat')!='')
+            $data['surat'] = $this->input->post('surat');
+        if($this->input->post('mendesak')=='mendesak') 
+            $data['ispublic']=1;
+        $this->model_agenda->updateAgenda($idagenda,$data);
+        $this->model_agenda->delpendamping($idagenda);
+        $this->model_agenda->delsatpassus($idagenda);
+        $this->model_agenda->delrundown($idagenda);
+        $this->createPendamping($idagenda);
+        $this->createSat($idagenda);
+        $this->saverundown($idagenda);
+        redirect('agenda/coord/detailAgenda/'.$idagenda);
+    }
+    
     public function home(){
         $data["some"] = base_url()."agenda/coord/getAgenda";
         $this->load->view('agenda/jscal',$data);
@@ -101,7 +135,11 @@ class Coord extends Koordinator_Controller {
             $data['pic'] = $this->input->post('picrd'.$i);
             $data['keterangan'] = $this->input->post('ketrd'.$i);
             $data['agenda'] = $id;
-            $this->db->insert('rundown',$data);
+            if(!empty($this->input->post('namard'.$i)))
+            {
+                $this->db->insert('rundown',$data);
+            }
+            
         }
     }
     

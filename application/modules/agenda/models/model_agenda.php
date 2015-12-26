@@ -62,4 +62,28 @@ from agenda ";
         $this->db->where('id',$id);
         $this->db->update('agenda',$data);
     }
+    
+    function updateAgenda($id,$data)
+    {
+        $this->db->where('id',$id);
+        $this->db->update('agenda',$data);
+    }
+    
+    function delpendamping($idagenda)
+    {
+        $this->db->where('agenda',$idagenda);
+        $this->db->delete('pendamping');
+    }
+    
+    function delsatpassus($idagenda)
+    {
+        $this->db->where('agenda',$idagenda);
+        $this->db->delete('satpassus');
+    }
+    
+    function delrundown($idagenda)
+    {
+        $this->db->where('agenda',$idagenda);
+        $this->db->delete('rundown');
+    }
 }
