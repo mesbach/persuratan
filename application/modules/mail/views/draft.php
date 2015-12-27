@@ -56,30 +56,20 @@ $surat = $this->model->getDraft(10000);
                     <table class="table table-inbox table-hover">
                         <tbody>
                                 <?php foreach ($surat as $data) {
-                                if($data->isread==0){
+                                
                             ?>
-                            <tr class="unread">
-                                <td class="inbox-small-cells">
-                                    <input type="checkbox" class="mail-checkbox">
-                                </td>
-                                <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                                <td class="view-message  dont-show"><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->pengirim;?></a></td>
-                                <td class="view-message "><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->jurnal;?></a></td>
-                                <td class="view-message  inbox-small-cells"><?php if(!empty($data->lampiran)){?><i class="fa fa-paperclip"></i><?php }?></td>
-                                <td class="view-message  text-right"><?php echo $data->tanggal;?></td>
-                            </tr>
-                            <?php } else {?>
+                          
                             <tr class="">
                                  <td class="inbox-small-cells">
                                     <input type="checkbox" class="mail-checkbox">
                                 </td>
                                 <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                                <td class="view-message  dont-show"><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->pengirim;?></a></td>
-                                <td class="view-message "><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->jurnal;?></a></td>
+                                <td class="view-message  dont-show"><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->nama;?></a></td>
+                                <td class="view-message "><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->judul;?></a></td>
                                 <td class="view-message  inbox-small-cells"><?php if(!empty($data->lampiran)){?><i class="fa fa-paperclip"></i><?php }?></td>
-                                <td class="view-message  text-right"><?php echo $data->tanggal;?></td>
+                                <td class="view-message  text-right"><?php echo $data->tanggal_entry;?></td>
                             </tr>
-                            <?php }
+                            <?php 
                         }?> 
                         </tbody>
                     </table>
