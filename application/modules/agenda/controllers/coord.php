@@ -135,7 +135,8 @@ class Coord extends Koordinator_Controller {
             $data['pic'] = $this->input->post('picrd'.$i);
             $data['keterangan'] = $this->input->post('ketrd'.$i);
             $data['agenda'] = $id;
-            if(!empty($this->input->post('namard'.$i)))
+            $temp = $this->input->post('namard'.$i);
+            if(!empty($temp))
             {
                 $this->db->insert('rundown',$data);
             }
