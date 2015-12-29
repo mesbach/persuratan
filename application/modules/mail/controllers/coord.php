@@ -155,7 +155,8 @@ class Coord extends Koordinator_Controller {
             $data['isdraft'] = 1; 
         }
         
-        $data['lampiran'] = $this->do_upload($this->input->post('judul'));
+        $judul = $this->input->post('judul');
+        $data['lampiran'] = $this->do_upload($judul);
         $data['jurnal'] = $this->input->post('jurnal');
         $data['judul'] = $this->input->post('judul');
         $data['nomor'] = $this->input->post('nomor');
