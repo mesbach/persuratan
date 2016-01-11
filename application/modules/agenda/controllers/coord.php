@@ -46,6 +46,14 @@ class Coord extends Koordinator_Controller {
         $this->display('editAgenda',$data);
     }
     
+    public function agendaByMail($idsurat) {
+        $this->title="Buat Agenda Kegiatan";
+        $this->script_header_spesific = 'lay-scripts/header_calendaragenda';
+        $this->script_footer_spesific = 'lay-scripts/footer_calendaragenda';
+        $data['surat'] = $this->model_agenda->getsurat($idsurat);
+        $this->display('formagenda_withsurat',$data);
+    }
+    
     public function updateagenda($id) {
         $id = $this->session->userdata['logged_in']["id"];
         if($this->input->post('forpublic')=='yes')
@@ -59,7 +67,6 @@ class Coord extends Koordinator_Controller {
         $data['hasil'] = $this->input->post('hasil');
         $data['tempat'] = $this->input->post('tempat');
         $data['admin'] = $id;
-        $data['verifikasi'] = 1;
         $data['file'] = $this->do_upload($this->input->post('judul'));
         if($this->input->post('surat')!='')
             $data['surat'] = $this->input->post('surat');
@@ -75,10 +82,6 @@ class Coord extends Koordinator_Controller {
         redirect('agenda/coord/detailAgenda/'.$idagenda);
     }
     
-    public function home(){
-        $data["some"] = base_url()."agenda/coord/getAgenda";
-        $this->load->view('agenda/jscal',$data);
-    }
     public function save(){
         $id = $this->saveAgenda();
         $this->createPendamping($id);
@@ -118,7 +121,8 @@ class Coord extends Koordinator_Controller {
         $data['admin'] = $id;
         $data['verifikasi'] = 1;
         $data['file'] = $this->do_upload($this->input->post('judul'));
-        if($this->input->post('surat')!='')
+        $idsurat = $this->input->post('surat');
+        if(!empty($idsurat))
             $data['surat'] = $this->input->post('surat');
         if($this->input->post('mendesak')=='mendesak') $data['ispublic']=1;
         $this->db->insert('agenda',$data);
@@ -142,12 +146,6 @@ class Coord extends Koordinator_Controller {
             }
             
         }
-    }
-    
-    private function calendar($tanggal)
-    {
-        $date = str_replace('T'," ", $tanggal);
-        return $date;
     }
     
     public function getAgenda(){

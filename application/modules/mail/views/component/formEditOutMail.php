@@ -25,30 +25,32 @@
             <div class="form-group">
                 <label for="nomorsurat">Perihal</label>
                 <input type="text" class="form-control" name="perihal" placeholder="Perihal" value="<?php echo $surat[0]->perihal; ?>">
+                <input id="modesimpan" type="hidden" class="form-control" name="modesimpan" value="" >
             </div>
             <div class="form-group icheck minimal">
                 <label for="nomorsurat">Sifat</label>
+                <?php $tempsifat = explode('|', $surat[0]->sifat);?>
                 <div class="checkbox single-row">
                     <label>
-                        <input type="checkbox" name="mendesak" value="Mendesak" <?php if (strpos($surat[0]->sifat, 'mendesak') !== false) echo "checked"; ?> >
+                        <input type="checkbox" name="mendesak" value="Mendesak" <?php foreach ($tempsifat as $v) { if($v == 'Mendesak') {echo "checked";} } ?> >
                         Mendesak
                     </label>
                 </div>
                 <div class="checkbox single-row">
                     <label>
-                        <input type="checkbox" name="rahasia" value="Rahasia" <?php if (strpos($surat[0]->sifat, 'rahasia') !== false) echo "checked"; ?>>
+                        <input type="checkbox" name="rahasia" value="Rahasia" <?php foreach ($tempsifat as $v) { if($v == 'Rahasia') {echo "checked";} } ?>>
                         Rahasia
                     </label>
                 </div>
                 <div class="checkbox single-row">
                     <label>
-                        <input type="checkbox" name="penting" value="Penting" <?php if (strpos($surat[0]->sifat, 'penting') !== false) echo "checked"; ?>>
+                        <input type="checkbox" name="penting" value="Penting" <?php foreach ($tempsifat as $v) { if($v == 'Penting') {echo "checked";} } ?>>
                         Penting
                     </label>
                 </div>
                 <div class="checkbox single-row">
                     <label>
-                        <input type="checkbox" name="biasa" value="Biasa" <?php if (strpos($surat[0]->sifat, 'biasa') !== false) echo "checked"; ?>>
+                        <input type="checkbox" name="biasa" value="Biasa" <?php foreach ($tempsifat as $v) { if($v == 'Biasa') {echo "checked";} } ?>>
                         Biasa
                     </label>
                 </div>
@@ -57,15 +59,11 @@
         <div class="col-md-6" >
             <div class="form-group">
                 <label for="nomorsurat">Pengirim</label>
-                <input type="text" readonly class="form-control" name="pengirim" placeholder="Nama Pengirim" value="<?php echo $surat[0]->pengirim; ?>">
+                <input type="text" readonly class="form-control" name="pengirim" placeholder="Nama Pengirim" value="Ketua Umum">
             </div>
             <div class="form-group">
                 <label for="nomorsurat">Penerima</label>
-                <input type="text" class="form-control" name="penerima" placeholder="Penerima" >
-            </div>
-            <div class="form-group">
-                <label for="nomorsurat">Tanggal Terima Surat</label>
-                <input class="form-control form-control-inline input-medium default-date-picker" name="tanggal_terima" size="16" type="text" value="<?php echo $surat[0]->tanggal_terima; ?>">
+                <input type="text" class="form-control" name="penerima" placeholder="Penerima" value="<?php echo $surat[0]->penerima; ?>" >
             </div>
             <div class="form-group">
                 <label for="nomorsurat">Kategori</label>
@@ -114,7 +112,22 @@
                 <p class="help-block">Berupa pdf / zip. Ukuran Maksimal 5Mb.</p>
             </div>
             <input type="hidden" value="out" name="jenis_surat"/> 
-            <button type="submit" class="btn btn-info">Simpan</button>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <button type="submit" onclick="changemodesimpan('simpan')" class="btn btn-info pull-right">Simpan</button>
+        </div>
+        <div class="col-lg-6">
+            <button type="submit" onclick="changemodesimpan('draft')" class="btn btn-warning pull-left">Simpan Draft</button>
         </div>
     </div>
 </form>
+<script>
+    function changemodesimpan(mode)
+    {
+        $("#modesimpan").val(mode);
+    }
+
+</script>

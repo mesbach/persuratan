@@ -58,9 +58,11 @@ $notif = $this->model_mail->getNofication();
                     <div class="btn-group">
                         <button href="#myModal" data-toggle="modal" type="button" class="btn btn-primary"> <i class="fa fa-plus"></i> Surat Masuk</button>
                     </div>
+                    <?php if($this->session->userdata['logged_in']['privilege'] == 'coord') { ?>
                     <div class="btn-group">
                         <button href="#myModal2" data-toggle="modal" type="button" class="btn btn-warning"><i class="fa fa-plus"></i> Memo</button>
                     </div>
+                    <?php } ?>
 
                     <ul class="unstyled inbox-pagination">
                         <li style="list-style: none"><span>1-50 of 124</span></li>
@@ -124,6 +126,7 @@ $notif = $this->model_mail->getNofication();
     </div>
 </div>
 
+<?php if($this->session->userdata['logged_in']['privilege'] == 'coord') { ?>
 <div aria-hidden="true" aria-labelledby="myModalLabel2" role="dialog" tabindex="-1" id="myModal2" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -138,6 +141,7 @@ $notif = $this->model_mail->getNofication();
                             <div class="form-group">
                                 <label for="nomorsurat">Isi</label>
                                 <textarea class="form-control" name="isi" rows="6" placeholder="Memo ini akan menjadi draft / rancangan surat masuk yang akan dilengkapi oleh operator"></textarea>
+                                <input type="hidden" name="jenissurat" value="in">
                             </div>
                         </div>
                     </div>
@@ -151,3 +155,4 @@ $notif = $this->model_mail->getNofication();
         </div>
     </div>
 </div>
+<?php } ?>

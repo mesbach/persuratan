@@ -43,7 +43,9 @@
                         </td>
                         
                         <td>
-                            <?php if($value->verifikasi!=3){ ?>
+                            <?php
+                            if($this->session->userdata['logged_in']['privilege'] == 'coord'){
+                            if($value->verifikasi!=3||$value->verifikasi!=2){ ?>
                             <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle" type="button">Pilihan <span class="caret"></span></button>
                                 <ul role="menu" class="dropdown-menu">
@@ -56,7 +58,7 @@
                                     <li><a href="<?php echo base_url(); ?>agenda/<?php echo $this->session->userdata["logged_in"]["privilege"] ?>/changeverifiy/3/<?php echo $value->id; ?>" ><i class="fa fa-minus-circle"></i> Batal</a></li>
                                 </ul>
                             </div>
-                            <?php } ?>
+                            <?php }} ?>
                         </td>
                     </tr>
                     <?php }

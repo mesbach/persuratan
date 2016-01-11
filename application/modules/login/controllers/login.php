@@ -71,7 +71,7 @@ class login extends Login_Controller {
                 redirect($url);
             }
         } else {
-            redirect("dashboard/coord");
+            redirect("dashboard/".$this->session->userdata["logged_in"]["privilege"]);
         }
     }
 }

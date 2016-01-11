@@ -20,7 +20,7 @@ class model_agenda extends CI_model {
     }
     function calagenda(){
         $sql = "select agenda.judul as 'title', agenda.awal as 'start', agenda.akhir as 'end'
-from agenda ";
+from agenda order by agenda.awal asc ";
         return $this->query($sql);
     }
     function pendamping(){
@@ -85,5 +85,12 @@ from agenda ";
     {
         $this->db->where('agenda',$idagenda);
         $this->db->delete('rundown');
+    }
+    
+    function getsurat($idsurat)
+    {
+        $this->db->where('id',$idsurat);
+        $hasil = $this->db->get('surat');
+        return $hasil->result();
     }
 }

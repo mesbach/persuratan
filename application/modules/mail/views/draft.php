@@ -10,7 +10,7 @@ $surat = $this->model->getDraft(10000);
     <div class="col-sm-9">
         <section class="panel">
             <header class="panel-heading wht-bg">
-                <h4 class="gen-case">Draft Surat <?php echo count($surat)?>
+                <h4 class="gen-case">Draft Surat ( <?php echo count($surat)?> )
                     <form action="#" class="pull-right mail-src-position">
                         <div class="input-append">
                             <input type="text" class="form-control " placeholder="Cari Surat">
@@ -64,10 +64,10 @@ $surat = $this->model->getDraft(10000);
                                     <input type="checkbox" class="mail-checkbox">
                                 </td>
                                 <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                                <td class="view-message  dont-show"><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->nama;?></a></td>
-                                <td class="view-message "><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->judul;?></a></td>
+                                <td class="view-message  dont-show"><a href="<?php echo base_url(); ?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"] ?>/viewMail/<?php echo $data->id?>"><?php if($data->jenis_surat=='in') {echo 'Surat Masuk';} else {echo 'Surat Keluar';}?></a></td>
+                                <td class="view-message "><a href="<?php echo base_url(); ?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"] ?>/viewMail/<?php echo $data->id?>"><?php if(!empty($data->judul)) {echo $data->judul;} else {echo $data->isi;}?></a></td>
                                 <td class="view-message  inbox-small-cells"><?php if(!empty($data->lampiran)){?><i class="fa fa-paperclip"></i><?php }?></td>
-                                <td class="view-message  text-right"><?php echo $data->tanggal_entry;?></td>
+                                <td class="view-message  text-right"><?php $temp = date_create($data->tanggal_entry); $tgl = date_format($temp,'d M Y H:i:s'); echo $tgl;?></td>
                             </tr>
                             <?php 
                         }?> 

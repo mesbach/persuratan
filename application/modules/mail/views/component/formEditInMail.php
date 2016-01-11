@@ -15,11 +15,12 @@
             <div class="form-group">
                 <label for="nomorsurat">Jurnal</label>
                 <input type="hidden" name="idsurat" value="<?php echo $surat[0]->id; ?>" >
-                <input type="text" readonly class="form-control" name="jurnal" placeholder="Jurnal"  value="<?php echo $surat[0]->jurnal; ?>">
+                <input type="text" readonly class="form-control" name="jurnal" placeholder="Jurnal"  value="<?php if(!empty($surat[0]->jurnal)){echo $surat[0]->jurnal;} else{echo $jurnal;} ?>">
             </div>
             <div class="form-group">
                 <label for="nomorsurat">Nomor Surat</label>
                 <input type="text" class="form-control" name="nomor" placeholder="Nomor Surat" value="<?php echo $surat[0]->nomor; ?>">
+                <input id="modesimpan" type="hidden" class="form-control" name="modesimpan" value="" >
             </div>
             <div class="form-group">
                 <label for="nomorsurat">Tanggal Surat</label>
@@ -31,27 +32,28 @@
             </div>
             <div class="form-group icheck minimal">
                 <label for="nomorsurat">Sifat</label>
+                <?php $tempsifat = explode('|', $surat[0]->sifat);?>
                 <div class="checkbox single-row">
                     <label>
-                        <input type="checkbox" name="mendesak" value="Mendesak" <?php if (strpos($surat[0]->sifat, 'mendesak') !== false) echo "checked"; ?> >
+                        <input type="checkbox" name="mendesak" value="Mendesak" <?php foreach ($tempsifat as $v) { if($v == 'Mendesak') {echo "checked";} } ?> >
                         Mendesak
                     </label>
                 </div>
                 <div class="checkbox single-row">
                     <label>
-                        <input type="checkbox" name="rahasia" value="Rahasia" <?php if (strpos($surat[0]->sifat, 'rahasia') !== false) echo "checked"; ?>>
+                        <input type="checkbox" name="rahasia" value="Rahasia" <?php foreach ($tempsifat as $v) { if($v == 'Rahasia') {echo "checked";} } ?>>
                         Rahasia
                     </label>
                 </div>
                 <div class="checkbox single-row">
                     <label>
-                        <input type="checkbox" name="penting" value="Penting" <?php if (strpos($surat[0]->sifat, 'penting') !== false) echo "checked"; ?>>
+                        <input type="checkbox" name="penting" value="Penting" <?php foreach ($tempsifat as $v) { if($v == 'Penting') {echo "checked";} } ?>>
                         Penting
                     </label>
                 </div>
                 <div class="checkbox single-row">
                     <label>
-                        <input type="checkbox" name="biasa" value="Biasa" <?php if (strpos($surat[0]->sifat, 'biasa') !== false) echo "checked"; ?>>
+                        <input type="checkbox" name="biasa" value="Biasa" <?php foreach ($tempsifat as $v) { if($v == 'Biasa') {echo "checked";} } ?>>
                         Biasa
                     </label>
                 </div>
@@ -117,7 +119,21 @@
                 <p class="help-block">Berupa pdf / zip. Ukuran Maksimal 5Mb.</p>
             </div>
             <input type="hidden" value="in" name="jenis_surat"/> 
-            <button type="submit" class="btn btn-info">Simpan</button>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <button type="submit" onclick="changemodesimpan('simpan')" class="btn btn-info pull-right">Simpan</button>
+        </div>
+        <div class="col-lg-6">
+            <button type="submit" onclick="changemodesimpan('draft')" class="btn btn-warning pull-left">Simpan Draft</button>
         </div>
     </div>
 </form>
+<script>
+    function changemodesimpan(mode)
+    {
+        $("#modesimpan").val(mode);
+    }
+</script>

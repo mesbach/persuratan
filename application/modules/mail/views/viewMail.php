@@ -33,7 +33,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <h5><strong><?php if($surat[0]->jenis_surat == 'in') echo "Surat Masuk";
-                    else echo "Surat Keluar"; ?></strong></h5>
+                    else echo "Surat Keluar"; ?> <?php if($surat[0]->isdraft == 1) echo ' - DRAFT'; ?></strong></h5>
                             </div>
                             <div class="col-md-9">
                                 <div class="row">
@@ -43,12 +43,16 @@
                                             <ul role="menu" class="dropdown-menu">
                                                 
                                                 <?php if($surat[0]->jenis_surat == 'in') { ?><li><a href="#myModal" data-toggle="modal"><i class="fa fa-reply"></i> Balas</a></li><?php } ?>
+                                                <?php if($this->session->userdata["logged_in"]["privilege"]=='coord' || ($this->session->userdata["logged_in"]["privilege"]=='operator' && $surat[0]->isdraft==1)) { ?>
                                                 <li><a href="#modalUbah" data-toggle="modal"><i class="fa fa-edit"></i> Ubah</a></li>
-                                                <?php if($surat[0]->jenis_surat == 'in') { ?><li><a href="#myModal2" data-toggle="modal"><i class="fa fa-plus"></i> Memo Balasan</a></li><?php } ?>
-                                                <li><a href="<?php echo base_url('agenda').'/'. $this->session->userdata["logged_in"]["privilege"]?>/calendarAgenda/<?php echo $surat[0]->id;?>"><i class="fa fa-calendar-o"></i> Buat Agenda</a></li>
+                                                <?php } ?>
+                                                <?php if($surat[0]->jenis_surat == 'in') { ?><li><a href="#myModal2" data-toggle="modal"><i class="fa fa-plus"></i> Komentar</a></li><?php } ?>
+                                                <li><a href="<?php echo base_url('agenda').'/'. $this->session->userdata["logged_in"]["privilege"]?>/agendaByMail/<?php echo $surat[0]->id;?>"><i class="fa fa-calendar-o"></i> Buat Agenda</a></li>
                                                 <li><a href="#"><i class="fa fa-print"></i> Print</a></li>
+                                                <?php if($this->session->userdata["logged_in"]["privilege"]=='coord') { ?>
                                                 <li class="divider"></li>
                                                 <li><a href="#"><i class="fa fa-trash-o"></i> Hapus</a></li>
+                                                <?php } ?>
                                             </ul>
                                         </div>
                                     </div>
@@ -236,6 +240,7 @@
     </div>
 </div>
 
+<?php if($this->session->userdata["logged_in"]["privilege"]=='coord' || ($this->session->userdata["logged_in"]["privilege"]=='operator' && $surat[0]->isdraft==1)){ ?>
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalUbah" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -278,3 +283,4 @@
         </div>
     </div>
 </div>
+<?php } ?>

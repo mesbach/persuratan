@@ -65,7 +65,7 @@ var Script = function () {
             }
 
         },
-        events: "<?php echo $some; ?>"
+        events: "<?php echo $urlgetagendacal; ?>"
     });
 
 

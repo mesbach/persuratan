@@ -22,7 +22,7 @@
         <div class="mini-stat clearfix">
             <span class="mini-stat-icon green"><i class="fa fa-bell-o"></i></span>
             <div class="mini-stat-info">
-                <span></span>
+                <span><?php echo count($agenda); ?></span>
                 Agenda Bulan <?php echo date('M Y'); ?>
             </div>
         </div>
@@ -61,6 +61,16 @@
                     <span>Agenda Ketua Umum</span>
                     Hari Ini
                 </div>
+                <ul class="event-list">
+                    <?php foreach ($agendatoday as $v) { ?>
+                    <li>
+                        <p style="color: white; text-align: left">Jam <?php echo $v->awal?></p>
+                        <a href="<?php echo site_url(); ?>agenda/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/detailAgenda/<?php echo $v->id ?>" style="color: white"><i><?php echo $v->judul ?></i></a>
+                    </li>
+                    <?php } ?>
+                    
+
+                </ul>
                 <!--ul class="event-list">
                     <li>Ceramah Gedung A @ 3:30 <a href="#" class="event-close"></a></li>
                     <li>Coffee meeting with B @ 4:30 <a href="#" class="event-close"></a></li>

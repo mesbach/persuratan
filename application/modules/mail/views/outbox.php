@@ -57,9 +57,11 @@ $surat = $this->model->getOutbox(100000);
                     <div class="btn-group">
                         <button href="#myModal" data-toggle="modal" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Surat Keluar</button>
                     </div>
+                    <?php if($this->session->userdata['logged_in']['privilege'] == 'coord') { ?>
                     <div class="btn-group">
                         <button href="#myModal2" data-toggle="modal" type="button" class="btn btn-warning"><i class="fa fa-plus"></i> Memo</button>
                     </div>
+                    <?php } ?>
 
                     <ul class="unstyled inbox-pagination">
                         <li style="list-style: none"><span>1-50 of 124</span></li>
@@ -83,7 +85,7 @@ $surat = $this->model->getOutbox(100000);
                                     <input type="checkbox" class="mail-checkbox">
                                 </td>
                                 <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                                <td class="view-message  dont-show"><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->pengirim;?></a></td>
+                                <td class="view-message  dont-show"><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->penerima;?></a></td>
                                 <td class="view-message "><a href="<?php echo base_url(); ?>mail/coord/viewMail/<?php echo $data->id?>"><?php echo $data->judul;?></a></td>
                                 <td class="view-message  inbox-small-cells"><?php if(!empty($data->lampiran)){?><i class="fa fa-paperclip"></i><?php }?></td>
                                 <td class="view-message  text-right"><?php echo $data->tanggal;?></td>
@@ -112,6 +114,7 @@ $surat = $this->model->getOutbox(100000);
         </div>
     </div>
 </div>
+<?php if($this->session->userdata['logged_in']['privilege'] == 'coord') { ?>
 <div aria-hidden="true" aria-labelledby="myModalLabel2" role="dialog" tabindex="-1" id="myModal2" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -120,13 +123,13 @@ $surat = $this->model->getOutbox(100000);
                 <h4 class="modal-title">Buat Memo</h4>
             </div>
             <div class="modal-body">
-                <form role="form">
+                <form role="form" action="<?php echo base_url(); ?>mail/<?php echo $this->session->userdata['logged_in']['privilege'] ?>/newmemo" method="post">
                     <div class="row">
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label for="nomorsurat">Isi</label>
-                                <textarea class="form-control" rows="6" placeholder="Memo ini akan menjadi draft / rancangan surat keluar yang akan dilengkapi oleh operator"></textarea>
-                                <!--<input type="text" class="form-control" id="nomorSurat" placeholder="Pisahkan dengan koma bila lebih dari 1">-->
+                                <textarea class="form-control" name="isi" rows="6" placeholder="Memo ini akan menjadi draft / rancangan surat keluar yang akan dilengkapi oleh operator"></textarea>
+                                <input type="hidden" name="jenissurat" value="out">
                             </div>
                             
                         </div>
@@ -141,5 +144,5 @@ $surat = $this->model->getOutbox(100000);
         </div>
     </div>
 </div>
-
+<?php } ?>
 <!--//halo!-->

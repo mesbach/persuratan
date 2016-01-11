@@ -86,4 +86,24 @@ class model_mail extends CI_model {
         $sql = "select * from surat where surat.id = $id or surat.parrent = $idparent or surat.id = $idparent order by surat.id asc";
         return $this->query($sql);
     }
+    
+    function disabledraft($idsurat)
+    {
+        $data['isdraft'] = 0;
+        $this->db->where('id',$idsurat);
+        $this->db->update('surat',$data);
+    }
+    
+    function enabledraft($idsurat)
+    {
+        $data['isdraft'] = 0;
+        $this->db->where('id',$idsurat);
+        $this->db->update('surat',$data);
+    }
+    
+    function updatesurat($id,$data)
+    {
+        $this->db->where('id',$id);
+        $this->db->update('surat',$data);
+    }
 }
