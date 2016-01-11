@@ -21,7 +21,7 @@ class Coord extends Koordinator_Controller {
         $this->title="Agenda Kegiatan";
         $this->script_header_spesific = 'lay-scripts/header_calendaragenda';
         $this->script_footer_spesific = 'lay-scripts/footer_calendaragenda';
-        $data["some"] = base_url()."agenda/coord/getAgenda";
+        $data["urlgetagendacal"] = base_url()."agenda/coord/getAgenda";
         $data['agenda'] = $this->model_agenda->agenda();
         $data['pendamping'] = $this->model_agenda->pendamping();
         $data['id']='';
