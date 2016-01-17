@@ -80,6 +80,14 @@ class model extends CI_model {
         
         return $this->query($sql);
     }
+    
+    function getUnreadmail()
+    {
+        $id = $this->session->userdata['logged_in']["id"];
+        $sql = "select * from surat where surat.id not in 
+        (select surat.id from surat inner join notifikasi on surat.id = notifikasi.surat where notifikasi.user = $id) and surat.parrent IS NULL";
+        return $this->query($sql);
+    }
         
     
 }

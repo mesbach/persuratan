@@ -51,9 +51,9 @@ class model_mail extends CI_model {
     }
     function readMail($idsurat){
         $id = $this->session->userdata['logged_in']["id"];
-        $sql = "select * from notifikasi where surat=$idsurat & user=$id";
+        $sql = "select * from notifikasi where surat=$idsurat and user=$id";
         $rest = $this->query($sql,array($idsurat,$id));
-        if(count($rest)==0){
+        if(empty($rest)){
             $data = array(
                'user' => $id,
                'surat' => $idsurat,
