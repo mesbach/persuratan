@@ -1,7 +1,7 @@
 <!--logo start-->
 <?php 
 $this->load->model('dashboard/model');
-$notif_surat = $data['notif_surat'] = $this->model->getNofication();
+$notif_surat = $data['notif_surat'] = $this->model->getUnreadmail();
 
 ?>
 <div class="brand">
@@ -48,11 +48,11 @@ $notif_surat = $data['notif_surat'] = $this->model->getNofication();
                 </li>
                 <?php foreach($notif_surat as $data){?>
                 <li>
-                    <a href="#">
+                    <a href="<?php echo base_url(); ?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"]?>/viewMail/<?php echo $data->id?>">
                         
                         <span class="subject">
                             <span class="from"><?php echo $data->jurnal; ?></span>
-                            <span class="time"><?php echo $data->tanggal;?></span>
+                            <span class="time"><?php echo $data->tanggal_surat;?></span>
                         </span>
                         <span class="message">
                             <?php echo $data->perihal; ?>
