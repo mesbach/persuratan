@@ -12,6 +12,7 @@
                         <label>Dasar Surat</label>
                         <input type="text" value="<?php echo $surat[0]->judul; ?>" class="form-control" name="judulsurat" readonly="true">
                         <input type="hidden" value="<?php echo $surat[0]->id; ?>" class="form-control" name="surat">
+                        <span><a class="help-block" target="_blank" href="<?php echo base_url(); ?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"]?>/viewMail/<?php echo $surat[0]->id ?>">detil surat klik disni</a></span>
                     </div>
                 </div>
             </div>

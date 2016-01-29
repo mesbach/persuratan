@@ -98,6 +98,16 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="form-group icheck minimal">
+                            <div class="checkbox single-row">
+                                <label>
+                                    <input type="checkbox" name="needagenda" >
+                                    Buat Agenda
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-6 form-group">
                             <button type="submit" onclick="changemode('out')" class="btn btn-info pull-right">Simpan</button>
                         </div>

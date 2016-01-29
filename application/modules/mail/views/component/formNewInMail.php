@@ -98,7 +98,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="exampleInputFile">File Lampiran</label>
@@ -106,6 +105,16 @@
                                 <p class="help-block">Berupa pdf / zip. Ukuran Maksimal 5Mb.</p>
                             </div>
                             <input type="hidden" value="in" name="jenis_surat"/> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group icheck minimal">
+                            <div class="checkbox single-row">
+                                <label>
+                                    <input type="checkbox" name="needagenda" >
+                                    Buat Agenda
+                                </label>
+                            </div>
                         </div>
                     </div>
                      <div class="row">
@@ -116,6 +125,7 @@
                             <button type="submit" onclick="changemode('draft')" class="btn btn-warning pull-left">Simpan Draft</button>
                         </div>
                     </div>
+                    
                 </form>
 <script>
     function changemode(mode)

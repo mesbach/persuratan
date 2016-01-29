@@ -13,7 +13,7 @@
                     $a = 0;
                     foreach ($version as $v) {
                         if ($surat[0]->id == $v->id) {
-                            echo '<strong><li><a style="font-size: 14px" href="' . base_url() . 'mail/' . $this->session->userdata["logged_in"]["privilege"] . '/viewMail/' . $v->id . '"> Versi ' . $a . '</a></li></strong>';
+                            echo '<strong><li><a style="font-size: 14px" href="' . base_url() . 'mail/' . $this->session->userdata["logged_in"]["privilege"] . '/viewMail/' . $v->id . '"> Versi ' . $a . ' </a></li></strong>';
                         } else {
                             echo '<li><a href="' . base_url() . 'mail/' . $this->session->userdata["logged_in"]["privilege"] . '/viewMail/' . $v->id . '"> Versi ' . $a . '</a></li>';
                         }
@@ -46,7 +46,6 @@
                                                 <?php if($this->session->userdata["logged_in"]["privilege"]=='coord' || ($this->session->userdata["logged_in"]["privilege"]=='operator' && $surat[0]->isdraft==1)) { ?>
                                                 <li><a href="#modalUbah" data-toggle="modal"><i class="fa fa-edit"></i> Ubah</a></li>
                                                 <?php } ?>
-                                                <?php if($surat[0]->jenis_surat == 'in') { ?><li><a href="#myModal2" data-toggle="modal"><i class="fa fa-plus"></i> Komentar</a></li><?php } ?>
                                                 <li><a href="<?php echo base_url('agenda').'/'. $this->session->userdata["logged_in"]["privilege"]?>/agendaByMail/<?php echo $surat[0]->id;?>"><i class="fa fa-calendar-o"></i> Buat Agenda</a></li>
                                                 <li><a href="#"><i class="fa fa-print"></i> Print</a></li>
                                                 <?php if($this->session->userdata["logged_in"]["privilege"]=='coord') { ?>
@@ -180,16 +179,6 @@
                         </p>
 
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <?php
-                            foreach ($memo as $data) {
-                                echo $data->nama . " - ";
-                                echo $data->isi . "</br>";
-                            }
-                            ?>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -205,36 +194,6 @@
             </div>
             <div class="modal-body">
 <?php $this->load->view('component/formNewOutMail.php') ?>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div aria-hidden="true" aria-labelledby="myModalLabel2" role="dialog" tabindex="-1" id="myModal2" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">Buat Memo Balasan</h4>
-            </div>
-            <div class="modal-body">
-                <form role="form" action="<?php echo base_url() ?>mail/<?php echo $this->session->userdata["logged_in"]["privilege"] ?>/memo" method="POST">
-                    <div class="row">
-                        <div class="col-md-12" >
-                            <div class="form-group">
-                                <label for="nomorsurat">Isi</label>
-                                <textarea class="form-control" rows="6" name="isi" placeholder="Memo ini akan komentar untuk surat"></textarea>                                
-                                <input type="hidden" name="surat" value="<?php echo $surat[0]->id ?>"></input>                                
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <button type="submit" class="btn btn-info">Simpan</button>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

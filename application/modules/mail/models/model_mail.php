@@ -77,13 +77,13 @@ class model_mail extends CI_model {
     
     function getmailversion($id)
     {
-        $sql = "select * from surat where surat.id = $id or surat.parrent = $id order by surat.id asc";
+        $sql = "select * from surat left join admin on surat.idadmin = admin.idadmin where surat.id = $id or surat.parrent = $id order by surat.id asc";
         return $this->query($sql);
     }
     
     function getmailversion2($id,$idparent)
     {
-        $sql = "select * from surat where surat.id = $id or surat.parrent = $idparent or surat.id = $idparent order by surat.id asc";
+        $sql = "select * from surat left join admin on surat.idadmin = admin.idadmin where surat.id = $id or surat.parrent = $idparent or surat.id = $idparent order by surat.id asc";
         return $this->query($sql);
     }
     

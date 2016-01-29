@@ -166,7 +166,16 @@ class Coord extends Koordinator_Controller {
         $data['isi'] = $this->input->post('isi');
         
         $this->db->insert("surat",$data);
-        redirect('mail/coord/inbox');
+        $idnewmail = $this->db->insert_id();
+        if($this->input->post('needagenda')=='on')
+        {
+            redirect('agenda/coord/agendaByMail/'.$idnewmail);
+        }
+        else
+        {
+            redirect('mail/coord/inbox');
+        }
+        
     }
     
     function editinmail()
