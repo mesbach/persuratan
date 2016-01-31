@@ -21,7 +21,7 @@
     <div class="col-md-4">
         <div class="mini-stat clearfix">
             <span class="mini-stat-icon green"><i class="fa fa-bell-o"></i></span>
-            <div class="mini-stat-info">
+            <div class="mini-stat-info" onclick="window.location = '<?php echo site_url(); ?>agenda/operator/calendarAgenda'">
                 <span><?php echo count($agenda); ?></span>
                 Agenda Bulan <?php echo date('M Y'); ?>
             </div>

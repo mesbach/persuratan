@@ -5,6 +5,7 @@
 
 <!--icheck-->
 <link href="<?php echo base_url(); ?>assets/ui/js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+<link href="<?php echo base_url(); ?>assets/ui/js/iCheck/skins/minimal/green.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="<?php echo base_url(); ?>assets/ui/css/style.css" rel="stylesheet">

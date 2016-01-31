@@ -90,8 +90,7 @@ $notif_surat = $data['notif_surat'] = $this->model->getUnreadmail();
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="#"><i class=" fa fa-suitcase"></i>Profil</a></li>
-                <li><a href="#"><i class="fa fa-cog"></i> Pengaturan</a></li>
+                <li><a href="<?php echo base_url()?>profile/operator/"><i class=" fa fa-suitcase"></i>Profil</a></li>
                 <li><a href="<?php echo base_url()?>login/login/logout"><i class="fa fa-key"></i> Log Out</a></li>
             </ul>
         </li>

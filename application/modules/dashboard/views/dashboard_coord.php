@@ -21,7 +21,7 @@
     <div class="col-md-3">
         <div class="mini-stat clearfix">
             <span class="mini-stat-icon pink"><i class="fa fa-group"></i></span>
-            <div class="mini-stat-info">
+            <div class="mini-stat-info" onclick="window.location = '<?php echo site_url(); ?>guest/coord/'">
                 <span><?php echo $jml[0]->jml; ?></span>
                 Tamu Bulan <?php echo date('M Y'); ?>
             </div>
@@ -30,7 +30,7 @@
     <div class="col-md-3">
         <div class="mini-stat clearfix">
             <span class="mini-stat-icon green"><i class="fa fa-bell-o"></i></span>
-            <div class="mini-stat-info">
+            <div class="mini-stat-info" onclick="window.location = '<?php echo site_url(); ?>agenda/coord/calendarAgenda'">
                 <span><?php echo count($agenda); ?></span>
                 Agenda Bulan <?php echo date('M Y'); ?>
             </div>
