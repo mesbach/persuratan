@@ -5,7 +5,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="nomorsurat"><b>JUDUL SURAT</b></label>
-                                <input type="text" class="form-control" name="judul" placeholder="Judul">
+                                <input required type="text" class="form-control" name="judul" placeholder="Judul">
                             </div>
                         </div>
                         </center>

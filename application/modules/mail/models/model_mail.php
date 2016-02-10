@@ -42,7 +42,7 @@ class model_mail extends CI_model {
         return $this->query($sql);   
     }
     function getMail($id){
-        $sql = 'select *,DATE_FORMAT(surat.tanggal_surat,"%d %M %Y") as "tanggal" from surat where id='.$id;
+        $sql = 'select surat.*,DATE_FORMAT(surat.tanggal_surat,"%d %M %Y") as "tanggal", admin.nama as "nama_admin" from surat left join admin on surat.idadmin = admin.idadmin where surat.id='.$id;
         return $this->query($sql);      
     }
     function getMemo($id){

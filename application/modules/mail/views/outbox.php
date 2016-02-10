@@ -1,6 +1,8 @@
 <?php 
 $this->load->model('dashboard/model');
-$surat = $this->model->getOutbox(100000);
+$notif = $this->model_mail->getNofication();
+$surat = $this->model_mail->getOutbox();
+//$surat = $this->model->getOutbox(100000);
 
 ?>
 <div class="row">

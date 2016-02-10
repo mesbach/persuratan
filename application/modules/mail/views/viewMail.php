@@ -31,11 +31,20 @@
                 <div class="panel-body ">
                     <div class="mail-sender">
                         <div class="row">
-                            <div class="col-md-3">
-                                <h5><strong><?php if($surat[0]->jenis_surat == 'in') echo "Surat Masuk";
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    <h5><strong><?php if($surat[0]->jenis_surat == 'in') echo "Surat Masuk";
                     else echo "Surat Keluar"; ?> <?php if($surat[0]->isdraft == 1) echo ' - DRAFT'; ?></strong></h5>
+                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p><?php $jam = date("d M Y", strtotime($surat[0]->tanggal_entry));$wkt = date("H:i", strtotime($surat[0]->tanggal_entry)); if(empty($surat[0]->parrent)) {echo 'Disimpan Pada : '.$jam.' - '.$wkt.' WIB | Oleh : '. $surat[0]->nama_admin;} else {echo 'Diubah Pada : '.$jam.' - '.$wkt.' WIB |  Oleh '. $surat[0]->nama_admin;;} ?></p>
+                                    </div>    
+                                </div>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-4">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="btn-group pull-right">
@@ -43,9 +52,9 @@
                                             <ul role="menu" class="dropdown-menu">
                                                 
                                                 <?php if($surat[0]->jenis_surat == 'in') { ?><li><a href="#myModal" data-toggle="modal"><i class="fa fa-reply"></i> Balas</a></li><?php } ?>
-                                                <?php if($this->session->userdata["logged_in"]["privilege"]=='coord' || ($this->session->userdata["logged_in"]["privilege"]=='operator' && $surat[0]->isdraft==1)) { ?>
+                                                <?php //if($this->session->userdata["logged_in"]["privilege"]=='coord' || ($this->session->userdata["logged_in"]["privilege"]=='operator' && $surat[0]->isdraft==1)) { ?>
                                                 <li><a href="#modalUbah" data-toggle="modal"><i class="fa fa-edit"></i> Ubah</a></li>
-                                                <?php } ?>
+                                                <?php// } ?>
                                                 <li><a href="<?php echo base_url('agenda').'/'. $this->session->userdata["logged_in"]["privilege"]?>/agendaByMail/<?php echo $surat[0]->id;?>"><i class="fa fa-calendar-o"></i> Buat Agenda</a></li>
                                                 <li><a href="#"><i class="fa fa-print"></i> Print</a></li>
                                                 <?php if($this->session->userdata["logged_in"]["privilege"]=='coord') { ?>
@@ -199,7 +208,7 @@
     </div>
 </div>
 
-<?php if($this->session->userdata["logged_in"]["privilege"]=='coord' || ($this->session->userdata["logged_in"]["privilege"]=='operator' && $surat[0]->isdraft==1)){ ?>
+<?php //if($this->session->userdata["logged_in"]["privilege"]=='coord' || ($this->session->userdata["logged_in"]["privilege"]=='operator' && $surat[0]->isdraft==1)){ ?>
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalUbah" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -242,4 +251,4 @@
         </div>
     </div>
 </div>
-<?php } ?>
+<?php// } ?>
